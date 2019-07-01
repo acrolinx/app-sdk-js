@@ -19,7 +19,7 @@ import {
   AnalysisResultEvent, AppApiCapability,
   AppButtonConfig,
   configureAddon,
-  OffsetRange,
+  OffsetRange, openWindow,
   replaceRanges,
   ReportType,
   selectRanges,
@@ -49,7 +49,8 @@ export interface TextRangesExpiredEvent {
 
 export enum ApiCommands {
   selectRanges = 'selectRanges',
-  replaceRanges = 'replaceRanges'
+  replaceRanges = 'replaceRanges',
+  openWindow = 'openWindow'
 }
 
 export enum ApiEvents {
@@ -74,12 +75,13 @@ export class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
     textExtracted: new InternalEventEmitter<ExtractedTextEvent>(),
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
     invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>()
-  }
+  };
 
   private readonly _commands: AppCommands = {
     selectRanges,
     replaceRanges,
-  }
+    openWindow
+  };
 
   get events(): Pick<AppEvents, E> {
     return this._events;
@@ -134,7 +136,7 @@ export class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
           });
         }
       } else if (eventForApp.type === 'invalidRanges') {
-        this._events.invalidRanges.dispatchEvent(eventForApp)
+        this._events.invalidRanges.dispatchEvent(eventForApp);
       }
     }, false);
   }
@@ -149,6 +151,7 @@ interface AppEvents {
 interface AppCommands {
   selectRanges: typeof selectRanges;
   replaceRanges: typeof replaceRanges;
+  openWindow: typeof openWindow;
 }
 
 interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> {

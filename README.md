@@ -2,6 +2,39 @@
 
 SDK for apps running inside of the Acrolinx Sidebar.
 
+## Installation
+
+```bash
+    npm install @acrolinx/app-sdk
+```
+
+## Example Code
+
+
+```typescript
+import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '@acrolinx/app-sdk';
+
+// Initialize the Acrolinx App API
+const api = initApi({
+  appSignature: DEVELOPMENT_APP_SIGNATURE,
+  title: 'App Title',
+  button: {
+    text: 'Extract Text',
+    tooltip: 'Extract text from the document'
+  },
+  requiredCommands: [ApiCommands.openWindow],
+  requiredEvents: [ApiEvents.textExtracted],
+});
+
+// Listen to events
+api.events.textExtracted.addEventListener(textExtractedEvent => {
+  console.log('textExtractedEvent', textExtractedEvent.text, textExtractedEvent.languageId);
+});
+
+// Execute commands
+api.commands.openWindow('http://www.acrolinx.com');
+```
+
 ## License
 
 Copyright 2019-present Acrolinx GmbH

@@ -88,7 +88,7 @@ export function replaceRanges(ranges: OffsetRangeWithReplacement[]) {
 }
 
 export function configureAddon(config: SidebarAddonConfig) {
-  postMessageToSidebar({command: 'acrolinx.sidebar.configureAddon', config: config});
+  postMessageToSidebar({command: 'acrolinx.sidebar.configureAddon', config});
 }
 
 function postMessageToSidebar<T extends { command: string }>(message: T) {

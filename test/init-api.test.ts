@@ -14,15 +14,42 @@
  * limitations under the License.
  */
 
-import {initApi} from '../src';
+import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '../src';
 
-describe('createAcrolinxApp', () => {
-  it('dummy test', () => {
+describe('initApi', () => {
+  beforeEach(() => {
+    window.open = jest.fn();
+    window.console.warn = jest.fn();
+  });
+
+  it('initApi returns something', () => {
     const api = initApi({
       title: 'app title',
       requiredCommands: [],
       requiredEvents: [],
     });
     expect(api).toBeTruthy();
+  });
+
+  it('compiles the readme example', () => {
+    // Initialize the Acrolinx App API
+    const api = initApi({
+      appSignature: DEVELOPMENT_APP_SIGNATURE,
+      title: 'App Title',
+      button: {
+        text: 'Extract Text',
+        tooltip: 'Extract text from the document'
+      },
+      requiredCommands: [ApiCommands.openWindow],
+      requiredEvents: [ApiEvents.textExtracted],
+    });
+
+    // Listen to events
+    api.events.textExtracted.addEventListener(textExtractedEvent => {
+      console.log('textExtractedEvent', textExtractedEvent.text, textExtractedEvent.languageId);
+    });
+
+    // Execute commands
+    api.commands.openWindow('http://www.acrolinx.com');
   });
 });
