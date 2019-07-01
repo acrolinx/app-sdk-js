@@ -2,14 +2,17 @@
 
 SDK for apps running inside of the Acrolinx Sidebar.
 
-## Installation
-
+## Installation 
 ```bash
 npm install @acrolinx/app-sdk
 ```
 
+
+
+
 ## Example Code
 
+### TypeScript/ES6
 
 ```typescript
 import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '@acrolinx/app-sdk';
@@ -34,6 +37,19 @@ api.events.textExtracted.addEventListener(textExtractedEvent => {
 // Execute commands
 api.commands.openWindow('https://www.acrolinx.com');
 ```
+
+
+### Plain old JavaScript
+If you prefer to code in plain old JavaScript without npm and without a bundler, you can use the minified browser bundle.
+In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
+
+```html
+<script src="https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js"></script>
+<script>
+  var api = acrolinxAppSdk.initApi({.... 
+</script>
+```
+
 
 ## Demo Projects
 
