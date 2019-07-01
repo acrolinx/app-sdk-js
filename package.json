@@ -9,7 +9,8 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
-    "dist/src"
+    "dist/src",
+    "dist/acrolinx-app-sdk.min.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,8 +20,8 @@
   },
   "scripts": {
     "ci": "npm run build && npm run tslint && npm run testCoverage",
-    "clean": "rm -rf dist",
-    "build": "tsc",
+    "clean": "rm -rf dist tmp .cache",
+    "build": "tsc && parcel build src/index.ts --out-file acrolinx-app-sdk.min.js --global acrolinxAppSdk",
     "test": "jest",
     "testCoverage": "jest --coverage",
     "tscWatch": "tsc -w",
@@ -32,6 +33,7 @@
     "@types/node": "^10.14.9",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
+    "parcel": "^1.12.3",
     "ts-jest": "^24.0.2",
     "tslint": "5.17.0",
     "tslint-no-circular-imports": "^0.7.0",
