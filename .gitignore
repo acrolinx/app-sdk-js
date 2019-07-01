@@ -1,0 +1,7 @@
+.idea
+.private
+
+node_modules
+
+tmp
+dist

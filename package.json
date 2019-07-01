@@ -1,0 +1,60 @@
+{
+  "name": "@acrolinx/app-sdk",
+  "version": "0.0.1",
+  "description": "Acrolinx App SDK",
+  "license": "Apache-2.0",
+  "author": "Acrolinx",
+  "url": "https://www.acrolinx.com",
+  "repository": "https://github.com/acrolinx/acrolinx-api-js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">=8.9.4"
+  },
+  "scripts": {
+    "ci": "npm run build && npm run tslint && npm run testCoverage",
+    "clean": "rm -rf dist",
+    "build": "tsc",
+    "test": "jest",
+    "testCoverage": "jest --coverage",
+    "tscWatch": "tsc -w",
+    "tslint": "tslint -p tsconfig.json -t stylish",
+    "tslintFix": "tslint --fix -p tsconfig.json -t stylish"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^10.14.9",
+    "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "5.17.0",
+    "tslint-no-circular-imports": "^0.7.0",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.5.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coverageDirectory": "tmp/coverage",
+    "coverageReporters": [
+      "cobertura",
+      "json",
+      "lcov",
+      "text"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "testURL": "http://localhost/"
+  },
+  "jest-junit": {
+    "output": "tmp/junit.xml"
+  }
+}
