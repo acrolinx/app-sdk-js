@@ -5,7 +5,7 @@ SDK for apps running inside of the Acrolinx Sidebar.
 ## Installation
 
 ```bash
-    npm install @acrolinx/app-sdk
+npm install @acrolinx/app-sdk
 ```
 
 ## Example Code
