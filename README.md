@@ -1,6 +1,6 @@
 # Acrolinx App SDK
 
-SDK for apps running inside of the Acrolinx sidebar.
+SDK for apps running inside of the Acrolinx Sidebar.
 
 ## License
 
