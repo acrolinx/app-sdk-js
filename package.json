@@ -11,6 +11,9 @@
   "files": [
     "dist/src"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "engines": {
     "node": ">=8.9.4"
   },
