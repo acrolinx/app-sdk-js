@@ -40,7 +40,8 @@ api.commands.openWindow('https://www.acrolinx.com');
 
 
 ### Plain old JavaScript
-If you prefer to code in plain old JavaScript without npm and without a bundler, you can use the minified browser bundle.
+If you prefer to code in plain old JavaScript without npm and without a bundler, 
+you can use the [minified browser bundle](https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js).
 In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
 
 ```html
