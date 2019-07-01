@@ -35,6 +35,11 @@ api.events.textExtracted.addEventListener(textExtractedEvent => {
 api.commands.openWindow('https://www.acrolinx.com');
 ```
 
+## Demo Projects
+
+* [Word Cloud](https://github.com/acrolinx/acrolinx-app-demo) (demonstrates text extraction)
+* [Select Ranges](https://github.com/acrolinx/acrolinx-app-demo-select-ranges) (demonstrates text extraction, select ranges and replace ranges)
+
 ## License
 
 Copyright 2019-present Acrolinx GmbH
