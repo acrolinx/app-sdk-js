@@ -91,12 +91,12 @@ export class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
 
   constructor(config: ApiConfig<C, E>) {
     const requiredReportLinks = [];
-    if (includes(config.requiredEvents, ApiEvents.textExtracted)) {
+    if (includes(config.requiredEvents, ApiEvents.textExtractedLink)) {
       requiredReportLinks.push(ReportType.extractedText);
     }
 
     const requiredReportContent = [];
-    if (includes(config.requiredEvents, ApiEvents.textExtractedLink)) {
+    if (includes(config.requiredEvents, ApiEvents.textExtracted)) {
       requiredReportContent.push(ReportType.extractedText);
     }
 
