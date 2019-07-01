@@ -32,7 +32,7 @@ api.events.textExtracted.addEventListener(textExtractedEvent => {
 });
 
 // Execute commands
-api.commands.openWindow('http://www.acrolinx.com');
+api.commands.openWindow('https://www.acrolinx.com');
 ```
 
 ## License

@@ -50,6 +50,6 @@ describe('initApi', () => {
     });
 
     // Execute commands
-    api.commands.openWindow('http://www.acrolinx.com');
+    api.commands.openWindow('https://www.acrolinx.com');
   });
 });
