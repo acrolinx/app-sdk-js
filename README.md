@@ -7,9 +7,6 @@ SDK for apps running inside of the Acrolinx Sidebar.
 npm install @acrolinx/app-sdk
 ```
 
-
-
-
 ## Example Code
 
 ### TypeScript/ES6
@@ -38,7 +35,6 @@ api.events.textExtracted.addEventListener(textExtractedEvent => {
 api.commands.openWindow('https://www.acrolinx.com');
 ```
 
-
 ### Plain old JavaScript
 If you prefer to code in plain old JavaScript without npm and without a bundler, 
 you can use the [minified browser bundle](https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js).
@@ -53,6 +49,11 @@ In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
 
 Please have a look at the corresponding [live demo](https://acrolinx.github.io/app-sdk-js/examples/text-extraction/).
 Please note that this app does not do much when not loaded inside of an Acrolinx Sidebar.
+
+## App Icon
+
+The app icon needs to be named by convention "acrolinx-app-icon.svg" and must put next to the app html file ([example](./docs/examples/text-extraction)).
+
 
 ## Demo Projects
 
