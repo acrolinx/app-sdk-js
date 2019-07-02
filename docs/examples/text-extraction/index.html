@@ -32,7 +32,7 @@ Extracted Text:
 
 
 <script>
-  // Initialize the Acrolinx App API
+  // Initialize the Acrolinx App API.
   var api = acrolinxAppSdk.initApi({
     title: 'Extract Text',
     button: {
@@ -42,13 +42,14 @@ Extracted Text:
     requiredEvents: [acrolinxAppSdk.ApiEvents.textExtracted],
   });
 
-  // Listen to the textExtracted event
+  // Listen to the textExtracted event.
   api.events.textExtracted.addEventListener(function (textExtractedEvent) {
     document.getElementById('languageId').innerText = textExtractedEvent.languageId;
     document.getElementById('extractedText').innerText = textExtractedEvent.text;
     document.getElementById('wordCount').innerText = countWords(textExtractedEvent.text);
   });
 
+  // Do some "processing" on the extracted text.
   function countWords(text) {
     var wordMatches = text.match(/\S+/g); // These are not really "words".
     if (!wordMatches) {
