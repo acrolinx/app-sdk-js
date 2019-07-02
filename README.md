@@ -51,6 +51,8 @@ In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
 </script>
 ```
 
+Please have a look at the corresponding [live demo](https://acrolinx.github.io/app-sdk-js/examples/text-extraction/).
+Please note that this app does not do much when not loaded inside of an Acrolinx Sidebar.
 
 ## Demo Projects
 
