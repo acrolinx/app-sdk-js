@@ -25,7 +25,7 @@ import {
   selectRanges,
   SidebarAddonConfig
 } from './raw';
-import {includes} from './utils';
+import {includes, isOverlapping} from './utils';
 
 export {OffsetRange};
 
@@ -175,8 +175,5 @@ export function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(
 }
 
 export function isInvalid(event: TextRangesExpiredEvent, range: OffsetRange): boolean {
-  return event.ranges.some(inValidRange =>
-    (inValidRange.begin <= range.begin && range.begin <= inValidRange.end) ||
-    (inValidRange.begin <= range.end && range.end <= inValidRange.end)
-  );
+  return event.ranges.some(inValidRange => isOverlapping(inValidRange, range));
 }

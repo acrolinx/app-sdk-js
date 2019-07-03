@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import {OffsetRange} from './raw';
+
 export function includes<T>(array: T[] | undefined, element: any): boolean {
   if (!array) {
     return false;
@@ -21,3 +23,7 @@ export function includes<T>(array: T[] | undefined, element: any): boolean {
   return array.indexOf(element) >= 0;
 }
 
+export function isOverlapping(range1: OffsetRange, range2: OffsetRange): boolean {
+  const isNotOverlapping = (range2.begin >= range1.end || range2.end <= range1.begin);
+  return !isNotOverlapping;
+}
