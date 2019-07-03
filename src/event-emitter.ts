@@ -16,10 +16,6 @@
 
 type TypedEventListener<T> = (event: T) => void;
 
-export interface DispatchOptions<T> {
-  noDispatchTo?: TypedEventListener<T>;
-}
-
 export interface TypedEventEmitter<T> {
   addEventListener(listener: TypedEventListener<T>): void;
   removeEventListener(listener: TypedEventListener<T>): void;
@@ -36,11 +32,9 @@ export class InternalEventEmitter<T> implements TypedEventEmitter<T> {
     this.listener = this.listener.filter(li => li !== listener);
   }
 
-  public dispatchEvent(event: T, opts: DispatchOptions<T> = {}) {
+  public dispatchEvent(event: T) {
     this.listener.forEach((listener) => {
-      if (!opts.noDispatchTo || listener !== opts.noDispatchTo) {
-        listener(event);
-      }
+      listener(event);
     });
   }
 }
