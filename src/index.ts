@@ -67,7 +67,7 @@ const DEFAULT_CONFIG: SidebarAddonConfig = {
   requiredReportLinks: [],
 };
 
-export class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
+class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
   E extends keyof AppEvents = keyof AppEvents>
   implements AcrolinxAppApi<C, E> {
 
@@ -154,13 +154,12 @@ interface AppCommands {
   openWindow: typeof openWindow;
 }
 
-interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> {
+export interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> {
   events: Pick<AppEvents, E>;
   commands: Pick<AppCommands, C>;
 }
 
-
-interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvents> {
+export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvents> {
   title?: string;
   appSignature?: string;
   button?: AppButtonConfig;
