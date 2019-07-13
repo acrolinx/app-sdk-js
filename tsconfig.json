@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "lib": [
-      "ES2015.Promise",
-      "ES2015.Iterable",
-      "ES5",
-      "DOM"
+      "es5",
+      "dom",
+      "dom.iterable"
     ],
+    "downlevelIteration": true,
     "resolveJsonModule": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,

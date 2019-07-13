@@ -10,7 +10,8 @@
   "types": "dist/src/index.d.ts",
   "files": [
     "dist/src",
-    "dist/acrolinx-app-sdk.min.js"
+    "dist/acrolinx-app-sdk.min.js",
+    "dist/acrolinx-app-sdk-auto-form.min.js"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -21,10 +22,14 @@
   "scripts": {
     "ci": "npm run build && npm run tslint && npm run testCoverage",
     "clean": "rm -rf dist tmp .cache",
-    "build": "tsc && parcel build src/index.ts --out-file acrolinx-app-sdk.min.js --global acrolinxAppSdk",
+    "build": "tsc && npm run buildBrowserBundle && npm run buildAutoForm",
+    "buildBrowserBundle": "parcel build src/index.ts --out-file acrolinx-app-sdk.min.js --global acrolinxAppSdk",
+    "devAutoForm": "parcel src/auto-form.ts",
+    "buildAutoForm": "parcel build src/auto-form.ts --out-file acrolinx-app-sdk-auto-form.min.js",
     "test": "jest",
     "testCoverage": "jest --coverage",
     "tscWatch": "tsc -w",
+    "tsc": "tsc",
     "tslint": "tslint -p tsconfig.json -t stylish",
     "tslintFix": "tslint --fix -p tsconfig.json -t stylish"
   },

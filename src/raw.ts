@@ -71,8 +71,12 @@ export interface OffsetRangeWithReplacement {
   end: number;
 }
 
+export function hasParentWindow() {
+  return window.parent && window.parent !== window;
+}
+
 export function openWindow(url: string) {
-  if (window.parent && window.parent !== window) {
+  if (hasParentWindow()) {
     window.parent.postMessage({command: 'acrolinx.sidebar.openWindow', url}, '*');
   } else {
     window.open(url);
@@ -92,7 +96,7 @@ export function configureAddon(config: SidebarAddonConfig) {
 }
 
 function postMessageToSidebar<T extends { command: string }>(message: T) {
-  if (window.parent && window.parent !== window) {
+  if (hasParentWindow()) {
     window.parent.postMessage(message, '*');
   } else {
     console.warn('Missing parent window with sidebar.', message);
