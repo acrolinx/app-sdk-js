@@ -20,7 +20,7 @@
     "node": ">=8.9.4"
   },
   "scripts": {
-    "ci": "npm run build && npm run tslint && npm run testCoverage",
+    "ci": "npm run build && npm run tslint && npm run testCoverage && npm run testMarkdown",
     "clean": "rm -rf dist tmp .cache",
     "build": "tsc && npm run buildBrowserBundle && npm run buildAutoForm",
     "buildBrowserBundle": "parcel build src/index.ts --out-file acrolinx-app-sdk.min.js --global acrolinxAppSdk",
@@ -28,6 +28,7 @@
     "buildAutoForm": "parcel build src/auto-form.ts --out-file acrolinx-app-sdk-auto-form.min.js",
     "test": "jest",
     "testCoverage": "jest --coverage",
+    "testMarkdown": "markdown-doctest",
     "tscWatch": "tsc -w",
     "tsc": "tsc",
     "tslint": "tslint -p tsconfig.json -t stylish",
@@ -38,6 +39,7 @@
     "@types/node": "^10.14.9",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
+    "markdown-doctest": "^0.9.1",
     "parcel": "^1.12.3",
     "ts-jest": "^24.0.2",
     "tslint": "5.17.0",

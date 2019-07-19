@@ -11,7 +11,7 @@ npm install @acrolinx/app-sdk
 
 ### TypeScript/ES6
 
-```typescript
+```javascript
 import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '@acrolinx/app-sdk';
 
 // Initialize the Acrolinx App API
