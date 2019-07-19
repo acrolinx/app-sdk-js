@@ -19,7 +19,7 @@
  * This module is highly experimental.
  */
 
-import {AcrolinxAppApi, ApiCommands, ApiEvents, initApi, isInvalid} from './index';
+import {AcrolinxAppApi, ApiCommands, ApiEvents, initApi, isInvalid, OffsetRange} from './index';
 import {hasParentWindow} from './raw';
 import {includes} from './utils';
 
@@ -35,10 +35,14 @@ function hideElements() {
   }
 }
 
-function findInPathToDocument(startElement: HTMLElement, dataAttribute: string): HTMLElement | undefined {
+function findAncestorWithData(startElement: HTMLElement, dataAttribute: string): HTMLElement | undefined {
+  return findAncestor(startElement, el => el.dataset[dataAttribute] !== undefined);
+}
+
+function findAncestor(startElement: HTMLElement, condition: (el: HTMLElement) => boolean): HTMLElement | undefined {
   let el = startElement;
   while (el && el !== document.body) {
-    if (el.dataset[dataAttribute]) {
+    if (condition(el)) {
       return el;
     }
     el = el.parentElement!;
@@ -74,19 +78,51 @@ function addInvalidRangesListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
   });
 }
 
+interface ElementWithRange {
+  element: Element;
+  range: OffsetRange;
+}
+
+function findAncestorWithValidSelectRange(startElement: HTMLElement): ElementWithRange | undefined {
+  const elementWithSelectRange = findAncestorWithData(startElement, 'acrolinxSelectRange');
+  if (!elementWithSelectRange || elementWithSelectRange.classList.contains(INVALID_RANGE_CLASS_NAME)) {
+    return;
+  }
+  const offsetRangeString = elementWithSelectRange.dataset.acrolinxSelectRange!;
+  return {element: elementWithSelectRange, range: JSON.parse(offsetRangeString)};
+}
+
 function addClickSelectRangeListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>) {
   document.addEventListener('click', (ev) => {
-    const elementWithSelectRange = findInPathToDocument(ev.target as HTMLElement, 'acrolinxSelectRange');
-    if (!elementWithSelectRange || elementWithSelectRange.classList.contains(INVALID_RANGE_CLASS_NAME)) {
+    const elementWithRange = findAncestorWithValidSelectRange(ev.target as HTMLElement);
+    if (!elementWithRange) {
       return;
     }
-    const offsetRangeString = elementWithSelectRange.dataset.acrolinxSelectRange!;
-    const offsetRange = JSON.parse(offsetRangeString);
 
     removeClassName('acrolinx-selected-range');
-    elementWithSelectRange.classList.add('acrolinx-selected-range');
+    elementWithRange.element.classList.add('acrolinx-selected-range');
 
-    appApi.commands.selectRanges([offsetRange]);
+    appApi.commands.selectRanges([elementWithRange.range]);
+  });
+}
+
+function addClickReplaceRangeListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>) {
+  document.addEventListener('click', (ev) => {
+    const elementWithReplaceRange = findAncestorWithData(ev.target as HTMLElement, 'acrolinxReplaceRange');
+    if (!elementWithReplaceRange) {
+      return;
+    }
+
+    const replacement = elementWithReplaceRange.dataset.acrolinxReplaceRange!;
+
+    const elementWithRange = findAncestorWithValidSelectRange(elementWithReplaceRange);
+    if (!elementWithRange) {
+      return;
+    }
+
+    elementWithRange.element.classList.add('acrolinx-replaced-range');
+
+    appApi.commands.replaceRanges([{...elementWithRange.range, replacement}]);
   });
 }
 
@@ -99,8 +135,8 @@ function initAcrolinxAppAutoForm() {
   const appTitle = getMetaValue('acrolinx-app-title') || (title && title.innerText);
   const acrolinxExtractedTextField = document.querySelector<HTMLTextAreaElement>('[data-acrolinx="extractedText"]');
 
-  const requiredCommands = (getMetaValue('acrolinx-app-required-commands') || '').split(/, ?/);
-  const requiredEvents = (getMetaValue('acrolinx-app-required-events') || '').split(/, ?/);
+  const requiredCommands = (getMetaValue('acrolinx-app-required-commands') || '').split(/, */);
+  const requiredEvents = (getMetaValue('acrolinx-app-required-events') || '').split(/, *?/);
   const appApi = initApi({
     title: appTitle || window.location.href,
     button: {
@@ -128,6 +164,10 @@ function initAcrolinxAppAutoForm() {
 
   if (includes(requiredCommands, ApiCommands.selectRanges)) {
     addClickSelectRangeListener(appApi);
+  }
+
+  if (includes(requiredCommands, ApiCommands.replaceRanges)) {
+    addClickReplaceRangeListener(appApi);
   }
 }
 
