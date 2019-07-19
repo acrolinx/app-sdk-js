@@ -24,8 +24,8 @@ import {hasParentWindow} from './raw';
 import {includes} from './utils';
 
 function getMetaValue(name: string) {
-  const metaEl = document.querySelector(`meta[name=${name}]`);
-  return metaEl && metaEl.getAttribute('value');
+  const metaEl = document.querySelector<HTMLMetaElement>(`meta[name=${name}]`);
+  return metaEl && metaEl.content;
 }
 
 function hideElements() {
