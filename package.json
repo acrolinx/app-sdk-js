@@ -10,6 +10,7 @@
   "types": "dist/src/index.d.ts",
   "files": [
     "dist/src",
+    "src",
     "dist/acrolinx-app-sdk.min.js",
     "dist/acrolinx-app-sdk-auto-form.min.js"
   ],
