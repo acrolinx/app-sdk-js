@@ -74,6 +74,7 @@
     "testURL": "http://localhost/"
   },
   "jest-junit": {
-    "output": "tmp/junit.xml"
+    "outputDirectory": "tmp",
+    "outputName": "junit.xml"
   }
 }
