@@ -59,7 +59,9 @@ interface InvalidateRangesEvent {
 
 export type EventForApp = AnalysisResultEvent | InvalidateRangesEvent;
 
-
+/**
+ * @public
+ */
 export interface OffsetRange {
   begin: number;
   end: number;

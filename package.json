@@ -33,9 +33,12 @@
     "tscWatch": "tsc -w",
     "tsc": "tsc",
     "tslint": "tslint -p tsconfig.json -t stylish",
-    "tslintFix": "tslint --fix -p tsconfig.json -t stylish"
+    "tslintFix": "tslint --fix -p tsconfig.json -t stylish",
+    "gendoc": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.7.2",
+    "@microsoft/api-extractor": "^7.7.0",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.19",
     "jest": "^24.9.0",

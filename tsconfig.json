@@ -18,6 +18,7 @@
     "strictPropertyInitialization": true,
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "baseUrl": "."
   },

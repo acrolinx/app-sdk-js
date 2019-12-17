@@ -29,30 +29,48 @@ import {includes, isOverlapping} from './utils';
 
 export {OffsetRange};
 
+/**
+ * @public
+ */
 // tslint:disable-next-line:max-line-length
 export const DEVELOPMENT_APP_SIGNATURE = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiS2lsbGVyIEFwcCIsImlkIjoiNGVlZDM3NjctMGYzMS00ZDVmLWI2MjktYzg2MWFiM2VkODUyIiwidHlwZSI6IkFQUCIsImlhdCI6MTU2MTE4ODI5M30.zlVJuGITMjAJ2p4nl-qtpj4N0p_8e4tenr-4dkrGdXg';
 
 
+/**
+ * @public
+ */
 export interface ExtractedTextEvent {
   languageId: string;
   text: string;
 }
 
+/**
+ * @public
+ */
 export interface ExtractedTextLinkEvent {
   languageId: string;
   url: string;
 }
 
+/**
+ * @public
+ */
 export interface TextRangesExpiredEvent {
   ranges: OffsetRange[];
 }
 
+/**
+ * @public
+ */
 export enum ApiCommands {
   selectRanges = 'selectRanges',
   replaceRanges = 'replaceRanges',
   openWindow = 'openWindow'
 }
 
+/**
+ * @public
+ */
 export enum ApiEvents {
   textExtracted = 'textExtracted',
   textExtractedLink = 'textExtractedLink',
@@ -142,23 +160,35 @@ class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
   }
 }
 
+/**
+ * @public
+ */
 interface AppEvents {
   textExtracted: TypedEventEmitter<ExtractedTextEvent>;
   textExtractedLink: TypedEventEmitter<ExtractedTextLinkEvent>;
   invalidRanges: TypedEventEmitter<TextRangesExpiredEvent>;
 }
 
+/**
+ * @public
+ */
 interface AppCommands {
   selectRanges: typeof selectRanges;
   replaceRanges: typeof replaceRanges;
   openWindow: typeof openWindow;
 }
 
+/**
+ * @public
+ */
 export interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> {
   events: Pick<AppEvents, E>;
   commands: Pick<AppCommands, C>;
 }
 
+/**
+ * @public
+ */
 export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvents> {
   title?: string;
   appSignature?: string;
@@ -167,12 +197,18 @@ export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvent
   requiredCommands: C[];
 }
 
+/**
+ * @public
+ */
 export function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(
   conf: ApiConfig<C, E>,
 ): AcrolinxAppApi<C, E> {
   return new AppApiConnection(conf);
 }
 
+/**
+ * @public
+ */
 export function isInvalid(event: TextRangesExpiredEvent, range: OffsetRange): boolean {
   return event.ranges.some(inValidRange => isOverlapping(inValidRange, range));
 }
