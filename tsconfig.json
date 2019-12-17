@@ -7,7 +7,6 @@
       "dom.iterable"
     ],
     "downlevelIteration": true,
-    "resolveJsonModule": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
