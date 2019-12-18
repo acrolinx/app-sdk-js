@@ -6,6 +6,7 @@
       "dom",
       "dom.iterable"
     ],
+    "module": "commonjs",
     "downlevelIteration": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -25,5 +26,12 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "typedocOptions": {
+    "exclude": ["test/**/*"],
+    "mode": "modules",
+    "out": "docs/typedoc",
+    "theme": "minimal",
+    "readme": "none"
+  }
 }

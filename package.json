@@ -34,7 +34,8 @@
     "tsc": "tsc",
     "tslint": "tslint -p tsconfig.json -t stylish",
     "tslintFix": "tslint --fix -p tsconfig.json -t stylish",
-    "gendoc": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api"
+    "gendoc": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api",
+    "typedoc": "typedoc"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.7.2",
@@ -49,6 +50,7 @@
     "tslint": "5.20.1",
     "tslint-no-circular-imports": "^0.7.0",
     "tslint-sonarts": "^1.9.0",
+    "typedoc": "^0.15.5",
     "typescript": "^3.7.3"
   },
   "jest": {
