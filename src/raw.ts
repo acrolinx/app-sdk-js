@@ -79,22 +79,25 @@ export function hasParentWindow() {
 
 export function openWindow(url: string) {
   if (hasParentWindow()) {
-    window.parent.postMessage({command: 'acrolinx.sidebar.openWindow', url}, '*');
+    window.parent.postMessage(
+      { command: 'acrolinx.sidebar.openWindow', url },
+      '*'
+    );
   } else {
     window.open(url);
   }
 }
 
 export function selectRanges(ranges: OffsetRange[]) {
-  postMessageToSidebar({command: 'acrolinx.sidebar.selectRanges', ranges});
+  postMessageToSidebar({ command: 'acrolinx.sidebar.selectRanges', ranges });
 }
 
 export function replaceRanges(ranges: OffsetRangeWithReplacement[]) {
-  postMessageToSidebar({command: 'acrolinx.sidebar.replaceRanges', ranges});
+  postMessageToSidebar({ command: 'acrolinx.sidebar.replaceRanges', ranges });
 }
 
 export function configureAddon(config: SidebarAddonConfig) {
-  postMessageToSidebar({command: 'acrolinx.sidebar.configureAddon', config});
+  postMessageToSidebar({ command: 'acrolinx.sidebar.configureAddon', config });
 }
 
 function postMessageToSidebar<T extends { command: string }>(message: T) {

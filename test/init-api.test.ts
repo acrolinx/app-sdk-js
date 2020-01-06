@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '../src';
+import {
+  ApiCommands,
+  ApiEvents,
+  DEVELOPMENT_APP_SIGNATURE,
+  initApi
+} from '../src';
 
 describe('initApi', () => {
   beforeEach(() => {
@@ -27,7 +32,7 @@ describe('initApi', () => {
     const api = initApi({
       title: 'app title',
       requiredCommands: [],
-      requiredEvents: [],
+      requiredEvents: []
     });
     expect(api).toBeTruthy();
   });
@@ -42,12 +47,16 @@ describe('initApi', () => {
         tooltip: 'Extract text from the document'
       },
       requiredCommands: [ApiCommands.openWindow],
-      requiredEvents: [ApiEvents.textExtracted],
+      requiredEvents: [ApiEvents.textExtracted]
     });
 
     // Listen to events
     api.events.textExtracted.addEventListener(textExtractedEvent => {
-      console.log('textExtractedEvent', textExtractedEvent.text, textExtractedEvent.languageId);
+      console.log(
+        'textExtractedEvent',
+        textExtractedEvent.text,
+        textExtractedEvent.languageId
+      );
     });
 
     // Execute commands

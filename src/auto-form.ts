@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-
 /**
  * This module is highly experimental.
  */
 
-import {AcrolinxAppApi, ApiCommands, ApiEvents, initApi, isInvalid, OffsetRange} from './index';
-import {hasParentWindow} from './raw';
-import {includes} from './utils';
+import {
+  AcrolinxAppApi,
+  ApiCommands,
+  ApiEvents,
+  initApi,
+  isInvalid,
+  OffsetRange
+} from './index';
+import { hasParentWindow } from './raw';
+import { includes } from './utils';
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
@@ -31,17 +37,28 @@ function getMetaValue(name: string) {
 }
 
 function hideElements() {
-  const elementsToHide = document.querySelectorAll<HTMLElement>('[data-acrolinx="hide"]');
+  const elementsToHide = document.querySelectorAll<HTMLElement>(
+    '[data-acrolinx="hide"]'
+  );
   for (const el of elementsToHide) {
     el.style.display = 'none';
   }
 }
 
-function findAncestorWithData(startElement: HTMLElement, dataAttribute: string): HTMLElement | undefined {
-  return findAncestor(startElement, el => el.dataset[dataAttribute] !== undefined);
+function findAncestorWithData(
+  startElement: HTMLElement,
+  dataAttribute: string
+): HTMLElement | undefined {
+  return findAncestor(
+    startElement,
+    el => el.dataset[dataAttribute] !== undefined
+  );
 }
 
-function findAncestor(startElement: HTMLElement, condition: (el: HTMLElement) => boolean): HTMLElement | undefined {
+function findAncestor(
+  startElement: HTMLElement,
+  condition: (el: HTMLElement) => boolean
+): HTMLElement | undefined {
   let el: HTMLElement | null = startElement;
   while (el && el !== document.body) {
     if (condition(el)) {
@@ -64,10 +81,16 @@ function compact<T>(array: Array<T | null>): T[] {
 
 const INVALID_RANGE_CLASS_NAME = 'acrolinx-invalid-range';
 
-function addInvalidRangesListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>) {
-  const invalidRangeTooltip = getMetaValue('acrolinx-app-invalid-range-tooltip');
-  appApi.events.invalidRanges.addEventListener((invalidRangesEvent) => {
-    const selectRangesElements = document.querySelectorAll<HTMLElement>('[data-acrolinx-select-range]');
+function addInvalidRangesListener(
+  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
+) {
+  const invalidRangeTooltip = getMetaValue(
+    'acrolinx-app-invalid-range-tooltip'
+  );
+  appApi.events.invalidRanges.addEventListener(invalidRangesEvent => {
+    const selectRangesElements = document.querySelectorAll<HTMLElement>(
+      '[data-acrolinx-select-range]'
+    );
     for (const el of selectRangesElements) {
       const offsetRange = JSON.parse(el.dataset.acrolinxSelectRange!);
       if (isInvalid(invalidRangesEvent, offsetRange)) {
@@ -85,18 +108,33 @@ interface ElementWithRange {
   range: OffsetRange;
 }
 
-function findAncestorWithValidSelectRange(startElement: HTMLElement): ElementWithRange | undefined {
-  const elementWithSelectRange = findAncestorWithData(startElement, 'acrolinxSelectRange');
-  if (!elementWithSelectRange || elementWithSelectRange.classList.contains(INVALID_RANGE_CLASS_NAME)) {
+function findAncestorWithValidSelectRange(
+  startElement: HTMLElement
+): ElementWithRange | undefined {
+  const elementWithSelectRange = findAncestorWithData(
+    startElement,
+    'acrolinxSelectRange'
+  );
+  if (
+    !elementWithSelectRange ||
+    elementWithSelectRange.classList.contains(INVALID_RANGE_CLASS_NAME)
+  ) {
     return;
   }
   const offsetRangeString = elementWithSelectRange.dataset.acrolinxSelectRange!;
-  return {element: elementWithSelectRange, range: JSON.parse(offsetRangeString)};
+  return {
+    element: elementWithSelectRange,
+    range: JSON.parse(offsetRangeString)
+  };
 }
 
-function addClickSelectRangeListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>) {
-  document.addEventListener('click', (ev) => {
-    const elementWithRange = findAncestorWithValidSelectRange(ev.target as HTMLElement);
+function addClickSelectRangeListener(
+  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
+) {
+  document.addEventListener('click', ev => {
+    const elementWithRange = findAncestorWithValidSelectRange(
+      ev.target as HTMLElement
+    );
     if (!elementWithRange) {
       return;
     }
@@ -108,23 +146,30 @@ function addClickSelectRangeListener(appApi: AcrolinxAppApi<ApiCommands, ApiEven
   });
 }
 
-function addClickReplaceRangeListener(appApi: AcrolinxAppApi<ApiCommands, ApiEvents>) {
-  document.addEventListener('click', (ev) => {
-    const elementWithReplaceRange = findAncestorWithData(ev.target as HTMLElement, 'acrolinxReplaceRange');
+function addClickReplaceRangeListener(
+  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
+) {
+  document.addEventListener('click', ev => {
+    const elementWithReplaceRange = findAncestorWithData(
+      ev.target as HTMLElement,
+      'acrolinxReplaceRange'
+    );
     if (!elementWithReplaceRange) {
       return;
     }
 
     const replacement = elementWithReplaceRange.dataset.acrolinxReplaceRange!;
 
-    const elementWithRange = findAncestorWithValidSelectRange(elementWithReplaceRange);
+    const elementWithRange = findAncestorWithValidSelectRange(
+      elementWithReplaceRange
+    );
     if (!elementWithRange) {
       return;
     }
 
     elementWithRange.element.classList.add('acrolinx-replaced-range');
 
-    appApi.commands.replaceRanges([{...elementWithRange.range, replacement}]);
+    appApi.commands.replaceRanges([{ ...elementWithRange.range, replacement }]);
   });
 }
 
@@ -134,11 +179,18 @@ function initAcrolinxAppAutoForm() {
   }
 
   const title = document.querySelector('title');
-  const appTitle = getMetaValue('acrolinx-app-title') || (title && title.innerText);
-  const acrolinxExtractedTextField = document.querySelector<HTMLTextAreaElement>('[data-acrolinx="extractedText"]');
+  const appTitle =
+    getMetaValue('acrolinx-app-title') || (title && title.innerText);
+  const acrolinxExtractedTextField = document.querySelector<
+    HTMLTextAreaElement
+  >('[data-acrolinx="extractedText"]');
 
-  const requiredCommands = (getMetaValue('acrolinx-app-required-commands') || '').split(/, */);
-  const requiredEvents = (getMetaValue('acrolinx-app-required-events') || '').split(/, *?/);
+  const requiredCommands = (
+    getMetaValue('acrolinx-app-required-commands') || ''
+  ).split(/, */);
+  const requiredEvents = (
+    getMetaValue('acrolinx-app-required-events') || ''
+  ).split(/, *?/);
   const appApi = initApi({
     title: appTitle || window.location.href,
     button: {
@@ -149,15 +201,14 @@ function initAcrolinxAppAutoForm() {
     requiredEvents: compact([
       acrolinxExtractedTextField && ApiEvents.textExtracted,
       ...(requiredEvents as ApiEvents[])
-    ]),
+    ])
   });
 
   if (acrolinxExtractedTextField) {
     appApi.events.textExtracted.addEventListener(event => {
-        acrolinxExtractedTextField.value = event.text;
-        acrolinxExtractedTextField.form!.submit();
-      }
-    );
+      acrolinxExtractedTextField.value = event.text;
+      acrolinxExtractedTextField.form!.submit();
+    });
   }
 
   if (includes(requiredEvents, ApiEvents.invalidRanges)) {
@@ -174,4 +225,3 @@ function initAcrolinxAppAutoForm() {
 }
 
 window.addEventListener('DOMContentLoaded', initAcrolinxAppAutoForm);
-

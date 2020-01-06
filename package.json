@@ -21,7 +21,7 @@
     "node": ">=8.9.4"
   },
   "scripts": {
-    "ci": "npm run build && npm run tslint && npm run testCoverage && npm run testMarkdown",
+    "ci": "npm run build && npm run lint && npm run testCoverage && npm run testMarkdown",
     "clean": "rm -rf dist tmp .cache",
     "build": "tsc && npm run buildBrowserBundle && npm run buildAutoForm",
     "buildBrowserBundle": "parcel build src/index.ts --out-file acrolinx-app-sdk.min.js --global acrolinxAppSdk",
@@ -32,9 +32,8 @@
     "testMarkdown": "markdown-doctest",
     "tscWatch": "tsc -w",
     "tsc": "tsc",
-    "tslint": "tslint -p tsconfig.json -t stylish",
-    "tslintFix": "tslint --fix -p tsconfig.json -t stylish",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx -f unix",
+    "prettier": "prettier --write \"{src,test}/**/*.ts\"",
     "gendoc": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api",
     "typedoc": "typedoc"
   },
@@ -46,14 +45,14 @@
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
     "markdown-doctest": "^1.0.0",
     "parcel": "^1.12.4",
+    "prettier": "1.19.1",
     "ts-jest": "^24.2.0",
-    "tslint": "5.20.1",
-    "tslint-no-circular-imports": "^0.7.0",
-    "tslint-sonarts": "^1.9.0",
     "typedoc": "^0.15.5",
     "typescript": "^3.7.4"
   },

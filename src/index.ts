@@ -14,27 +14,28 @@
  * limitations under the License.
  */
 
-import {InternalEventEmitter, TypedEventEmitter} from './event-emitter';
+import { InternalEventEmitter, TypedEventEmitter } from './event-emitter';
 import {
-  AnalysisResultEvent, AppApiCapability,
+  AnalysisResultEvent,
+  AppApiCapability,
   AppButtonConfig,
   configureAddon,
-  OffsetRange, openWindow,
+  OffsetRange,
+  openWindow,
   replaceRanges,
   ReportType,
   selectRanges,
   SidebarAddonConfig
 } from './raw';
-import {includes, isOverlapping} from './utils';
+import { includes, isOverlapping } from './utils';
 
-export {OffsetRange};
+export { OffsetRange };
 
 /**
  * @public
  */
-// tslint:disable-next-line:max-line-length
-export const DEVELOPMENT_APP_SIGNATURE = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiS2lsbGVyIEFwcCIsImlkIjoiNGVlZDM3NjctMGYzMS00ZDVmLWI2MjktYzg2MWFiM2VkODUyIiwidHlwZSI6IkFQUCIsImlhdCI6MTU2MTE4ODI5M30.zlVJuGITMjAJ2p4nl-qtpj4N0p_8e4tenr-4dkrGdXg';
-
+export const DEVELOPMENT_APP_SIGNATURE =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiS2lsbGVyIEFwcCIsImlkIjoiNGVlZDM3NjctMGYzMS00ZDVmLWI2MjktYzg2MWFiM2VkODUyIiwidHlwZSI6IkFQUCIsImlhdCI6MTU2MTE4ODI5M30.zlVJuGITMjAJ2p4nl-qtpj4N0p_8e4tenr-4dkrGdXg';
 
 /**
  * @public
@@ -77,18 +78,17 @@ export enum ApiEvents {
   invalidRanges = 'invalidRanges'
 }
 
-
 const DEFAULT_CONFIG: SidebarAddonConfig = {
   appSignature: DEVELOPMENT_APP_SIGNATURE,
   title: 'Acrolinx App',
   requiredReportContent: [],
-  requiredReportLinks: [],
+  requiredReportLinks: []
 };
 
-class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
-  E extends keyof AppEvents = keyof AppEvents>
-  implements AcrolinxAppApi<C, E> {
-
+class AppApiConnection<
+  C extends keyof AppCommands = keyof AppCommands,
+  E extends keyof AppEvents = keyof AppEvents
+> implements AcrolinxAppApi<C, E> {
   private readonly _events = {
     textExtracted: new InternalEventEmitter<ExtractedTextEvent>(),
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
@@ -121,42 +121,52 @@ class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
     }
 
     configureAddon({
-      ...DEFAULT_CONFIG, ...(config),
-      requiredReportLinks, requiredReportContent,
+      ...DEFAULT_CONFIG,
+      ...config,
+      requiredReportLinks,
+      requiredReportContent,
       requires: config.requiredCommands as AppApiCapability[]
     });
 
-    window.addEventListener('message', messageEvent => {
-      console.log('Got message from sidebar', messageEvent.data.type, messageEvent);
+    window.addEventListener(
+      'message',
+      messageEvent => {
+        console.log(
+          'Got message from sidebar',
+          messageEvent.data.type,
+          messageEvent
+        );
 
-      const eventForApp = messageEvent.data;
+        const eventForApp = messageEvent.data;
 
-      if (!eventForApp) {
-        return;
-      }
-
-      if (eventForApp.type === 'analysisResult') {
-        const analysisResult: AnalysisResultEvent = eventForApp;
-        const reports = analysisResult.reports;
-        const textExtractedReport = reports[ReportType.extractedText] || {};
-
-        if (textExtractedReport.url) {
-          this._events.textExtractedLink.dispatchEvent({
-            url: textExtractedReport.url,
-            languageId: analysisResult.languageId
-          });
+        if (!eventForApp) {
+          return;
         }
 
-        if (typeof textExtractedReport.content === 'string') {
-          this._events.textExtracted.dispatchEvent({
-            text: textExtractedReport.content,
-            languageId: analysisResult.languageId
-          });
+        if (eventForApp.type === 'analysisResult') {
+          const analysisResult: AnalysisResultEvent = eventForApp;
+          const reports = analysisResult.reports;
+          const textExtractedReport = reports[ReportType.extractedText] || {};
+
+          if (textExtractedReport.url) {
+            this._events.textExtractedLink.dispatchEvent({
+              url: textExtractedReport.url,
+              languageId: analysisResult.languageId
+            });
+          }
+
+          if (typeof textExtractedReport.content === 'string') {
+            this._events.textExtracted.dispatchEvent({
+              text: textExtractedReport.content,
+              languageId: analysisResult.languageId
+            });
+          }
+        } else if (eventForApp.type === 'invalidRanges') {
+          this._events.invalidRanges.dispatchEvent(eventForApp);
         }
-      } else if (eventForApp.type === 'invalidRanges') {
-        this._events.invalidRanges.dispatchEvent(eventForApp);
-      }
-    }, false);
+      },
+      false
+    );
   }
 }
 
@@ -181,7 +191,10 @@ export interface AppCommands {
 /**
  * @public
  */
-export interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> {
+export interface AcrolinxAppApi<
+  C extends keyof AppCommands,
+  E extends keyof AppEvents
+> {
   events: Pick<AppEvents, E>;
   commands: Pick<AppCommands, C>;
 }
@@ -189,7 +202,10 @@ export interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof App
 /**
  * @public
  */
-export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvents> {
+export interface ApiConfig<
+  C extends keyof AppCommands,
+  E extends keyof AppEvents
+> {
   title?: string;
   appSignature?: string;
   button?: AppButtonConfig;
@@ -201,7 +217,7 @@ export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvent
  * @public
  */
 export function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(
-  conf: ApiConfig<C, E>,
+  conf: ApiConfig<C, E>
 ): AcrolinxAppApi<C, E> {
   return new AppApiConnection(conf);
 }
@@ -209,6 +225,9 @@ export function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(
 /**
  * @public
  */
-export function isInvalid(event: TextRangesExpiredEvent, range: OffsetRange): boolean {
+export function isInvalid(
+  event: TextRangesExpiredEvent,
+  range: OffsetRange
+): boolean {
   return event.ranges.some(inValidRange => isOverlapping(inValidRange, range));
 }

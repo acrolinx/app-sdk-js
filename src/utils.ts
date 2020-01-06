@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {OffsetRange} from './raw';
+import { OffsetRange } from './raw';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function includes<T>(array: T[] | undefined, element: any): boolean {
@@ -24,7 +24,11 @@ export function includes<T>(array: T[] | undefined, element: any): boolean {
   return array.indexOf(element) >= 0;
 }
 
-export function isOverlapping(range1: OffsetRange, range2: OffsetRange): boolean {
-  const isNotOverlapping = (range2.begin >= range1.end || range2.end <= range1.begin);
+export function isOverlapping(
+  range1: OffsetRange,
+  range2: OffsetRange
+): boolean {
+  const isNotOverlapping =
+    range2.begin >= range1.end || range2.end <= range1.begin;
   return !isNotOverlapping;
 }
