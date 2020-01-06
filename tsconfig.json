@@ -21,7 +21,8 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
