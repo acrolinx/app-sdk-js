@@ -19,6 +19,7 @@ import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '../src
 describe('initApi', () => {
   beforeEach(() => {
     window.open = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     window.console.warn = jest.fn();
   });
 

@@ -16,6 +16,7 @@
 
 import {OffsetRange} from './raw';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function includes<T>(array: T[] | undefined, element: any): boolean {
   if (!array) {
     return false;

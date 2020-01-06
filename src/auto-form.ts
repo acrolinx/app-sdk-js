@@ -23,6 +23,8 @@ import {AcrolinxAppApi, ApiCommands, ApiEvents, initApi, isInvalid, OffsetRange}
 import {hasParentWindow} from './raw';
 import {includes} from './utils';
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 function getMetaValue(name: string) {
   const metaEl = document.querySelector<HTMLMetaElement>(`meta[name=${name}]`);
   return metaEl && metaEl.content;
@@ -40,12 +42,12 @@ function findAncestorWithData(startElement: HTMLElement, dataAttribute: string):
 }
 
 function findAncestor(startElement: HTMLElement, condition: (el: HTMLElement) => boolean): HTMLElement | undefined {
-  let el = startElement;
+  let el: HTMLElement | null = startElement;
   while (el && el !== document.body) {
     if (condition(el)) {
       return el;
     }
-    el = el.parentElement!;
+    el = el.parentElement;
   }
   return undefined;
 }
