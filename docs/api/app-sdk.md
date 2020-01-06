@@ -24,6 +24,8 @@
 |  --- | --- |
 |  [AcrolinxAppApi](./app-sdk.acrolinxappapi.md) |  |
 |  [ApiConfig](./app-sdk.apiconfig.md) |  |
+|  [AppCommands](./app-sdk.appcommands.md) |  |
+|  [AppEvents](./app-sdk.appevents.md) |  |
 |  [ExtractedTextEvent](./app-sdk.extractedtextevent.md) |  |
 |  [ExtractedTextLinkEvent](./app-sdk.extractedtextlinkevent.md) |  |
 |  [OffsetRange](./app-sdk.offsetrange.md) |  |

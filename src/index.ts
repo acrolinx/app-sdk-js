@@ -163,7 +163,7 @@ class AppApiConnection<C extends keyof AppCommands = keyof AppCommands,
 /**
  * @public
  */
-interface AppEvents {
+export interface AppEvents {
   textExtracted: TypedEventEmitter<ExtractedTextEvent>;
   textExtractedLink: TypedEventEmitter<ExtractedTextLinkEvent>;
   invalidRanges: TypedEventEmitter<TextRangesExpiredEvent>;
@@ -172,7 +172,7 @@ interface AppEvents {
 /**
  * @public
  */
-interface AppCommands {
+export interface AppCommands {
   selectRanges: typeof selectRanges;
   replaceRanges: typeof replaceRanges;
   openWindow: typeof openWindow;
