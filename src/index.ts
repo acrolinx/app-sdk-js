@@ -207,6 +207,7 @@ export interface ApiConfig<
   E extends keyof AppEvents
 > {
   title?: string;
+  version?: string;
   appSignature?: string;
   button?: AppButtonConfig;
   requiredEvents: E[];

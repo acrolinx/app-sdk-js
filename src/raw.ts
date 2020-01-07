@@ -31,6 +31,7 @@ export enum AppApiCapability {
 export interface SidebarAddonConfig {
   appSignature: string;
   title: string;
+  version?: string;
   button?: AppButtonConfig;
   requires?: AppApiCapability[];
   requiredReportLinks: readonly ReportType[];
