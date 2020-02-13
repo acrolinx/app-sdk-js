@@ -8,8 +8,8 @@
 
 |  Enumeration | Description |
 |  --- | --- |
-|  [ApiCommands](./app-sdk.apicommands.md) |  |
-|  [ApiEvents](./app-sdk.apievents.md) |  |
+|  [RequiredCommands](./app-sdk.requiredcommands.md) |  |
+|  [RequiredEvents](./app-sdk.requiredevents.md) |  |
 
 ## Functions
 

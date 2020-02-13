@@ -21,6 +21,7 @@ import {
   AppButtonConfig,
   configureAddon,
   OffsetRange,
+  OffsetRangeWithReplacement,
   openWindow,
   replaceRanges,
   ReportType,
@@ -63,7 +64,7 @@ export interface TextRangesExpiredEvent {
 /**
  * @public
  */
-export enum ApiCommands {
+export enum RequiredCommands {
   selectRanges = 'selectRanges',
   replaceRanges = 'replaceRanges',
   openWindow = 'openWindow'
@@ -72,12 +73,15 @@ export enum ApiCommands {
 /**
  * @public
  */
-export enum ApiEvents {
+export enum RequiredEvents {
   textExtracted = 'textExtracted',
   textExtractedLink = 'textExtractedLink',
   invalidRanges = 'invalidRanges'
 }
 
+/**
+ * @internal
+ */
 const DEFAULT_CONFIG: SidebarAddonConfig = {
   appSignature: DEVELOPMENT_APP_SIGNATURE,
   title: 'Acrolinx App',
@@ -85,10 +89,10 @@ const DEFAULT_CONFIG: SidebarAddonConfig = {
   requiredReportLinks: []
 };
 
-class AppApiConnection<
-  C extends keyof AppCommands = keyof AppCommands,
-  E extends keyof AppEvents = keyof AppEvents
-> implements AcrolinxAppApi<C, E> {
+/**
+ * @internal
+ */
+class AppApiConnection {
   private readonly _events = {
     textExtracted: new InternalEventEmitter<ExtractedTextEvent>(),
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
@@ -101,22 +105,22 @@ class AppApiConnection<
     openWindow
   };
 
-  get events(): Pick<AppEvents, E> {
+  get events(): AppEvents {
     return this._events;
   }
 
-  get commands(): Pick<AppCommands, C> {
+  get commands(): AppCommands {
     return this._commands;
   }
 
-  constructor(config: ApiConfig<C, E>) {
+  constructor(config: ApiConfig) {
     const requiredReportLinks = [];
-    if (includes(config.requiredEvents, ApiEvents.textExtractedLink)) {
+    if (includes(config.requiredEvents, RequiredEvents.textExtractedLink)) {
       requiredReportLinks.push(ReportType.extractedText);
     }
 
     const requiredReportContent = [];
-    if (includes(config.requiredEvents, ApiEvents.textExtracted)) {
+    if (includes(config.requiredEvents, RequiredEvents.textExtracted)) {
       requiredReportContent.push(ReportType.extractedText);
     }
 
@@ -125,7 +129,7 @@ class AppApiConnection<
       ...config,
       requiredReportLinks,
       requiredReportContent,
-      requires: config.requiredCommands as AppApiCapability[]
+      requires: (config.requiredCommands as unknown) as AppApiCapability[]
     });
 
     window.addEventListener(
@@ -183,43 +187,35 @@ export interface AppEvents {
  * @public
  */
 export interface AppCommands {
-  selectRanges: typeof selectRanges;
-  replaceRanges: typeof replaceRanges;
-  openWindow: typeof openWindow;
+  selectRanges(ranges: OffsetRange[]): void;
+  replaceRanges(ranges: OffsetRangeWithReplacement[]): void;
+  openWindow(url: string): void;
 }
 
 /**
  * @public
  */
-export interface AcrolinxAppApi<
-  C extends keyof AppCommands,
-  E extends keyof AppEvents
-> {
-  events: Pick<AppEvents, E>;
-  commands: Pick<AppCommands, C>;
+export interface AcrolinxAppApi {
+  events: AppEvents;
+  commands: AppCommands;
 }
 
 /**
  * @public
  */
-export interface ApiConfig<
-  C extends keyof AppCommands,
-  E extends keyof AppEvents
-> {
+export interface ApiConfig {
   title?: string;
   version?: string;
   appSignature?: string;
   button?: AppButtonConfig;
-  requiredEvents: E[];
-  requiredCommands: C[];
+  requiredEvents: RequiredEvents[];
+  requiredCommands: RequiredCommands[];
 }
 
 /**
  * @public
  */
-export function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(
-  conf: ApiConfig<C, E>
-): AcrolinxAppApi<C, E> {
+export function initApi(conf: ApiConfig): AcrolinxAppApi {
   return new AppApiConnection(conf);
 }
 

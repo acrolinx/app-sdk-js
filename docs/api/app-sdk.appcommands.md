@@ -11,11 +11,11 @@
 export interface AppCommands 
 ```
 
-## Properties
+## Methods
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [openWindow](./app-sdk.appcommands.openwindow.md) | <code>typeof openWindow</code> |  |
-|  [replaceRanges](./app-sdk.appcommands.replaceranges.md) | <code>typeof replaceRanges</code> |  |
-|  [selectRanges](./app-sdk.appcommands.selectranges.md) | <code>typeof selectRanges</code> |  |
+|  Method | Description |
+|  --- | --- |
+|  [openWindow(url)](./app-sdk.appcommands.openwindow.md) |  |
+|  [replaceRanges(ranges)](./app-sdk.appcommands.replaceranges.md) |  |
+|  [selectRanges(ranges)](./app-sdk.appcommands.selectranges.md) |  |
 

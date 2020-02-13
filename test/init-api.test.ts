@@ -15,8 +15,8 @@
  */
 
 import {
-  ApiCommands,
-  ApiEvents,
+  RequiredCommands,
+  RequiredEvents,
   DEVELOPMENT_APP_SIGNATURE,
   initApi
 } from '../src';
@@ -46,8 +46,8 @@ describe('initApi', () => {
         text: 'Extract Text',
         tooltip: 'Extract text from the document'
       },
-      requiredCommands: [ApiCommands.openWindow],
-      requiredEvents: [ApiEvents.textExtracted]
+      requiredCommands: [RequiredCommands.openWindow],
+      requiredEvents: [RequiredEvents.textExtracted]
     });
 
     // Listen to events

@@ -2,10 +2,21 @@
 
 [Home](./index.md) &gt; [@acrolinx/app-sdk](./app-sdk.md) &gt; [AppCommands](./app-sdk.appcommands.md) &gt; [replaceRanges](./app-sdk.appcommands.replaceranges.md)
 
-## AppCommands.replaceRanges property
+## AppCommands.replaceRanges() method
 
 <b>Signature:</b>
 
 ```typescript
-replaceRanges: typeof replaceRanges;
+replaceRanges(ranges: OffsetRangeWithReplacement[]): void;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  ranges | <code>OffsetRangeWithReplacement[]</code> |  |
+
+<b>Returns:</b>
+
+`void`
+

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-commands: Pick<AppCommands, C>;
+commands: AppCommands;
 ```

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-requiredCommands: C[];
+requiredCommands: RequiredCommands[];
 ```

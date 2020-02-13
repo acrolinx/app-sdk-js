@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2019-present Acrolinx GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @hidden
+ * @ignore
+ * @internal
  */
 
 /**
  * This module is highly experimental.
+ * @packageDocumentation
+ * @hidden
+ * @ignore
+ * @internal
  */
 
 import {
   AcrolinxAppApi,
-  ApiCommands,
-  ApiEvents,
+  RequiredCommands,
+  RequiredEvents,
   initApi,
   isInvalid,
   OffsetRange
@@ -81,9 +89,7 @@ function compact<T>(array: Array<T | null>): T[] {
 
 const INVALID_RANGE_CLASS_NAME = 'acrolinx-invalid-range';
 
-function addInvalidRangesListener(
-  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
-) {
+function addInvalidRangesListener(appApi: AcrolinxAppApi) {
   const invalidRangeTooltip = getMetaValue(
     'acrolinx-app-invalid-range-tooltip'
   );
@@ -128,9 +134,7 @@ function findAncestorWithValidSelectRange(
   };
 }
 
-function addClickSelectRangeListener(
-  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
-) {
+function addClickSelectRangeListener(appApi: AcrolinxAppApi) {
   document.addEventListener('click', ev => {
     const elementWithRange = findAncestorWithValidSelectRange(
       ev.target as HTMLElement
@@ -146,9 +150,7 @@ function addClickSelectRangeListener(
   });
 }
 
-function addClickReplaceRangeListener(
-  appApi: AcrolinxAppApi<ApiCommands, ApiEvents>
-) {
+function addClickReplaceRangeListener(appApi: AcrolinxAppApi) {
   document.addEventListener('click', ev => {
     const elementWithReplaceRange = findAncestorWithData(
       ev.target as HTMLElement,
@@ -197,10 +199,10 @@ function initAcrolinxAppAutoForm() {
       text: getMetaValue('acrolinx-app-button-text') || 'Check',
       tooltip: getMetaValue('acrolinx-app-button-tooltip') || ''
     },
-    requiredCommands: requiredCommands as ApiCommands[],
+    requiredCommands: requiredCommands as RequiredCommands[],
     requiredEvents: compact([
-      acrolinxExtractedTextField && ApiEvents.textExtracted,
-      ...(requiredEvents as ApiEvents[])
+      acrolinxExtractedTextField && RequiredEvents.textExtracted,
+      ...(requiredEvents as RequiredEvents[])
     ])
   });
 
@@ -211,15 +213,15 @@ function initAcrolinxAppAutoForm() {
     });
   }
 
-  if (includes(requiredEvents, ApiEvents.invalidRanges)) {
+  if (includes(requiredEvents, RequiredEvents.invalidRanges)) {
     addInvalidRangesListener(appApi);
   }
 
-  if (includes(requiredCommands, ApiCommands.selectRanges)) {
+  if (includes(requiredCommands, RequiredCommands.selectRanges)) {
     addClickSelectRangeListener(appApi);
   }
 
-  if (includes(requiredCommands, ApiCommands.replaceRanges)) {
+  if (includes(requiredCommands, RequiredCommands.replaceRanges)) {
     addClickReplaceRangeListener(appApi);
   }
 }

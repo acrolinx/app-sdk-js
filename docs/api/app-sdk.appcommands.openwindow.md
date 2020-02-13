@@ -2,10 +2,21 @@
 
 [Home](./index.md) &gt; [@acrolinx/app-sdk](./app-sdk.md) &gt; [AppCommands](./app-sdk.appcommands.md) &gt; [openWindow](./app-sdk.appcommands.openwindow.md)
 
-## AppCommands.openWindow property
+## AppCommands.openWindow() method
 
 <b>Signature:</b>
 
 ```typescript
-openWindow: typeof openWindow;
+openWindow(url: string): void;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  url | <code>string</code> |  |
+
+<b>Returns:</b>
+
+`void`
+

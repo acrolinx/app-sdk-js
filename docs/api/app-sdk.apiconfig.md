@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvents> 
+export interface ApiConfig 
 ```
 
 ## Properties
@@ -17,7 +17,8 @@ export interface ApiConfig<C extends keyof AppCommands, E extends keyof AppEvent
 |  --- | --- | --- |
 |  [appSignature](./app-sdk.apiconfig.appsignature.md) | <code>string</code> |  |
 |  [button](./app-sdk.apiconfig.button.md) | <code>AppButtonConfig</code> |  |
-|  [requiredCommands](./app-sdk.apiconfig.requiredcommands.md) | <code>C[]</code> |  |
-|  [requiredEvents](./app-sdk.apiconfig.requiredevents.md) | <code>E[]</code> |  |
+|  [requiredCommands](./app-sdk.apiconfig.requiredcommands.md) | <code>RequiredCommands[]</code> |  |
+|  [requiredEvents](./app-sdk.apiconfig.requiredevents.md) | <code>RequiredEvents[]</code> |  |
 |  [title](./app-sdk.apiconfig.title.md) | <code>string</code> |  |
+|  [version](./app-sdk.apiconfig.version.md) | <code>string</code> |  |
 

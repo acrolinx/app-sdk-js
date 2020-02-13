@@ -2,7 +2,7 @@
 
 SDK for apps running inside of the Acrolinx Sidebar.
 
-## Installation 
+## Installation
 ```bash
 npm install @acrolinx/app-sdk
 ```
@@ -12,7 +12,7 @@ npm install @acrolinx/app-sdk
 ### TypeScript/ES6
 
 ```javascript
-import {ApiCommands, ApiEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '@acrolinx/app-sdk';
+import {RequiredCommands, RequiredEvents, DEVELOPMENT_APP_SIGNATURE, initApi} from '@acrolinx/app-sdk';
 
 // Initialize the Acrolinx App API
 const api = initApi({
@@ -22,8 +22,8 @@ const api = initApi({
     text: 'Extract Text',
     tooltip: 'Extract text from the document'
   },
-  requiredCommands: [ApiCommands.openWindow],
-  requiredEvents: [ApiEvents.textExtracted],
+  requiredCommands: [RequiredCommands.openWindow],
+  requiredEvents: [RequiredEvents.textExtracted],
 });
 
 // Listen to events
@@ -36,14 +36,14 @@ api.commands.openWindow('https://www.acrolinx.com');
 ```
 
 ### Plain old JavaScript
-If you prefer to code in plain old JavaScript without npm and without a bundler, 
+If you prefer to code in plain old JavaScript without npm and without a bundler,
 you can use the [minified browser bundle](https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js).
 In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
 
 ```html
 <script src="https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js"></script>
 <script>
-  var api = acrolinxAppSdk.initApi({.... 
+  var api = acrolinxAppSdk.initApi({....
 </script>
 ```
 

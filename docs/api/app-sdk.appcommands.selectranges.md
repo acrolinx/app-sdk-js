@@ -2,10 +2,21 @@
 
 [Home](./index.md) &gt; [@acrolinx/app-sdk](./app-sdk.md) &gt; [AppCommands](./app-sdk.appcommands.md) &gt; [selectRanges](./app-sdk.appcommands.selectranges.md)
 
-## AppCommands.selectRanges property
+## AppCommands.selectRanges() method
 
 <b>Signature:</b>
 
 ```typescript
-selectRanges: typeof selectRanges;
+selectRanges(ranges: OffsetRange[]): void;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  ranges | <code>OffsetRange[]</code> |  |
+
+<b>Returns:</b>
+
+`void`
+

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-events: Pick<AppEvents, E>;
+events: AppEvents;
 ```

@@ -8,16 +8,16 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function initApi<C extends keyof AppCommands, E extends keyof AppEvents>(conf: ApiConfig<C, E>): AcrolinxAppApi<C, E>;
+export declare function initApi(conf: ApiConfig): AcrolinxAppApi;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  conf | <code>ApiConfig&lt;C, E&gt;</code> |  |
+|  conf | <code>ApiConfig</code> |  |
 
 <b>Returns:</b>
 
-`AcrolinxAppApi<C, E>`
+`AcrolinxAppApi`
 

@@ -8,13 +8,13 @@
 <b>Signature:</b>
 
 ```typescript
-export interface AcrolinxAppApi<C extends keyof AppCommands, E extends keyof AppEvents> 
+export interface AcrolinxAppApi 
 ```
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [commands](./app-sdk.acrolinxappapi.commands.md) | <code>Pick&lt;AppCommands, C&gt;</code> |  |
-|  [events](./app-sdk.acrolinxappapi.events.md) | <code>Pick&lt;AppEvents, E&gt;</code> |  |
+|  [commands](./app-sdk.acrolinxappapi.commands.md) | <code>AppCommands</code> |  |
+|  [events](./app-sdk.acrolinxappapi.events.md) | <code>AppEvents</code> |  |
 
