@@ -15,6 +15,7 @@ export interface AppCommands
 
 |  Method | Description |
 |  --- | --- |
+|  [getAppAccessToken()](./app-sdk.appcommands.getappaccesstoken.md) |  |
 |  [openWindow(url)](./app-sdk.appcommands.openwindow.md) |  |
 |  [replaceRanges(ranges)](./app-sdk.appcommands.replaceranges.md) |  |
 |  [selectRanges(ranges)](./app-sdk.appcommands.selectranges.md) |  |

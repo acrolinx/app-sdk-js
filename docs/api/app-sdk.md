@@ -24,11 +24,14 @@
 |  --- | --- |
 |  [AcrolinxAppApi](./app-sdk.acrolinxappapi.md) |  |
 |  [ApiConfig](./app-sdk.apiconfig.md) |  |
+|  [AppAccessTokenResult](./app-sdk.appaccesstokenresult.md) |  |
 |  [AppCommands](./app-sdk.appcommands.md) |  |
 |  [AppEvents](./app-sdk.appevents.md) |  |
 |  [ExtractedTextEvent](./app-sdk.extractedtextevent.md) |  |
 |  [ExtractedTextLinkEvent](./app-sdk.extractedtextlinkevent.md) |  |
+|  [HttpGetRequest](./app-sdk.httpgetrequest.md) |  |
 |  [OffsetRange](./app-sdk.offsetrange.md) |  |
+|  [OffsetRangeWithReplacement](./app-sdk.offsetrangewithreplacement.md) |  |
 |  [TextRangesExpiredEvent](./app-sdk.textrangesexpiredevent.md) |  |
 
 ## Variables

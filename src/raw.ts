@@ -58,7 +58,27 @@ interface InvalidateRangesEvent {
   ranges: OffsetRange[];
 }
 
-export type EventForApp = AnalysisResultEvent | InvalidateRangesEvent;
+/**
+ * @internal
+ */
+export interface AppAccessTokenEvent {
+  type: 'appAccessToken';
+  validationRequest: HttpGetRequest;
+  appAccessToken: string;
+}
+
+/**
+ * @public
+ */
+export interface HttpGetRequest {
+  url: string;
+  headers: { [key: string]: string };
+}
+
+export type EventForApp =
+  | AnalysisResultEvent
+  | InvalidateRangesEvent
+  | AppAccessTokenEvent;
 
 /**
  * @public
@@ -68,6 +88,9 @@ export interface OffsetRange {
   end: number;
 }
 
+/**
+ * @public
+ */
 export interface OffsetRangeWithReplacement {
   replacement: string;
   begin: number;
@@ -99,6 +122,10 @@ export function replaceRanges(ranges: OffsetRangeWithReplacement[]) {
 
 export function configureAddon(config: SidebarAddonConfig) {
   postMessageToSidebar({ command: 'acrolinx.sidebar.configureAddon', config });
+}
+
+export function getAppAccessToken() {
+  postMessageToSidebar({ command: 'acrolinx.sidebar.requestAppAccessToken' });
 }
 
 function postMessageToSidebar<T extends { command: string }>(message: T) {

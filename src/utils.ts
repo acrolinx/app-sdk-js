@@ -38,3 +38,7 @@ export function isOverlapping(
     range2.begin >= range1.end || range2.end <= range1.begin;
   return !isNotOverlapping;
 }
+
+export function exhaustiveSwitchCheck(param: never, name: string): never {
+  throw new Error(`Can't handle ${name} with value ${JSON.stringify(param)}`);
+}

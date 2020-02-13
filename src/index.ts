@@ -17,9 +17,13 @@
 import { InternalEventEmitter, TypedEventEmitter } from './event-emitter';
 import {
   AnalysisResultEvent,
+  AppAccessTokenEvent,
   AppApiCapability,
   AppButtonConfig,
   configureAddon,
+  EventForApp,
+  getAppAccessToken,
+  HttpGetRequest,
   OffsetRange,
   OffsetRangeWithReplacement,
   openWindow,
@@ -28,9 +32,14 @@ import {
   selectRanges,
   SidebarAddonConfig
 } from './raw';
-import { includes, isOverlapping } from './utils';
+import { exhaustiveSwitchCheck, includes, isOverlapping } from './utils';
 
-export { OffsetRange };
+export {
+  OffsetRange,
+  OffsetRangeWithReplacement,
+  AppAccessTokenEvent,
+  HttpGetRequest
+};
 
 /**
  * @public
@@ -64,10 +73,19 @@ export interface TextRangesExpiredEvent {
 /**
  * @public
  */
+export interface AppAccessTokenResult {
+  validationRequest: HttpGetRequest;
+  appAccessToken: string;
+}
+
+/**
+ * @public
+ */
 export enum RequiredCommands {
   selectRanges = 'selectRanges',
   replaceRanges = 'replaceRanges',
-  openWindow = 'openWindow'
+  openWindow = 'openWindow',
+  getAppAccessToken = 'getAppAccessToken'
 }
 
 /**
@@ -99,10 +117,15 @@ class AppApiConnection {
     invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>()
   };
 
+  private waitingAppAccessTokenResolvers: Array<
+    (token: AppAccessTokenResult) => void
+  > = [];
+
   private readonly _commands: AppCommands = {
     selectRanges,
     replaceRanges,
-    openWindow
+    openWindow,
+    getAppAccessToken: () => this.getAppAccessToken()
   };
 
   get events(): AppEvents {
@@ -141,36 +164,58 @@ class AppApiConnection {
           messageEvent
         );
 
-        const eventForApp = messageEvent.data;
+        const eventForApp: EventForApp | undefined = messageEvent.data;
 
         if (!eventForApp) {
           return;
         }
 
-        if (eventForApp.type === 'analysisResult') {
-          const analysisResult: AnalysisResultEvent = eventForApp;
-          const reports = analysisResult.reports;
-          const textExtractedReport = reports[ReportType.extractedText] || {};
-
-          if (textExtractedReport.url) {
-            this._events.textExtractedLink.dispatchEvent({
-              url: textExtractedReport.url,
-              languageId: analysisResult.languageId
+        switch (eventForApp.type) {
+          case 'analysisResult':
+            this.handleAnalysisResultEvent(eventForApp);
+            break;
+          case 'invalidRanges':
+            this._events.invalidRanges.dispatchEvent(eventForApp);
+            break;
+          case 'appAccessToken':
+            this.waitingAppAccessTokenResolvers.forEach(resolve => {
+              resolve(eventForApp);
             });
-          }
-
-          if (typeof textExtractedReport.content === 'string') {
-            this._events.textExtracted.dispatchEvent({
-              text: textExtractedReport.content,
-              languageId: analysisResult.languageId
-            });
-          }
-        } else if (eventForApp.type === 'invalidRanges') {
-          this._events.invalidRanges.dispatchEvent(eventForApp);
+            this.waitingAppAccessTokenResolvers = [];
+            break;
+          default:
+            exhaustiveSwitchCheck(eventForApp, 'AppApiEvent');
         }
       },
       false
     );
+  }
+
+  private handleAnalysisResultEvent(analysisResult: AnalysisResultEvent) {
+    const reports = analysisResult.reports;
+    const textExtractedReport = reports[ReportType.extractedText] || {};
+
+    if (textExtractedReport.url) {
+      this._events.textExtractedLink.dispatchEvent({
+        url: textExtractedReport.url,
+        languageId: analysisResult.languageId
+      });
+    }
+
+    if (typeof textExtractedReport.content === 'string') {
+      this._events.textExtracted.dispatchEvent({
+        text: textExtractedReport.content,
+        languageId: analysisResult.languageId
+      });
+    }
+  }
+
+  private getAppAccessToken(): Promise<AppAccessTokenResult> {
+    const promise = new Promise<AppAccessTokenResult>((resolve, _reject) => {
+      this.waitingAppAccessTokenResolvers.push(resolve);
+    });
+    getAppAccessToken();
+    return promise;
   }
 }
 
@@ -190,6 +235,7 @@ export interface AppCommands {
   selectRanges(ranges: OffsetRange[]): void;
   replaceRanges(ranges: OffsetRangeWithReplacement[]): void;
   openWindow(url: string): void;
+  getAppAccessToken(): Promise<AppAccessTokenResult>;
 }
 
 /**
