@@ -103,10 +103,7 @@ export function hasParentWindow() {
 
 export function openWindow(url: string) {
   if (hasParentWindow()) {
-    window.parent.postMessage(
-      { command: 'acrolinx.sidebar.openWindow', url },
-      '*'
-    );
+    postMessageToSidebar({ command: 'acrolinx.sidebar.openWindow', url });
   } else {
     window.open(url);
   }
