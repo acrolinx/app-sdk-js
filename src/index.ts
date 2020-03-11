@@ -21,6 +21,7 @@ import {
   AppApiCapability,
   AppButtonConfig,
   configureAddon,
+  DocumentSelection,
   EventForApp,
   getAppAccessToken,
   HttpGetRequest,
@@ -53,6 +54,12 @@ export const DEVELOPMENT_APP_SIGNATURE =
 export interface ExtractedTextEvent {
   languageId: string;
   text: string;
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  selection?: DocumentSelection;
 }
 
 /**
@@ -206,7 +213,8 @@ class AppApiConnection {
     if (typeof textExtractedReport.content === 'string') {
       this._events.textExtracted.dispatchEvent({
         text: textExtractedReport.content,
-        languageId: analysisResult.languageId
+        languageId: analysisResult.languageId,
+        selection: analysisResult.selection
       });
     }
   }
@@ -255,6 +263,13 @@ export interface ApiConfig {
   version?: string;
   appSignature?: string;
   button?: AppButtonConfig;
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  processSelectionButton?: AppButtonConfig;
+
   requiredEvents: RequiredEvents[];
   requiredCommands: RequiredCommands[];
 }

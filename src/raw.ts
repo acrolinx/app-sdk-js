@@ -33,6 +33,13 @@ export interface SidebarAddonConfig {
   title: string;
   version?: string;
   button?: AppButtonConfig;
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  processSelectionButton?: AppButtonConfig;
+
   requires?: AppApiCapability[];
   requiredReportLinks: readonly ReportType[];
   requiredReportContent: readonly ReportType[];
@@ -50,7 +57,22 @@ interface ReportForAddon {
 export interface AnalysisResultEvent {
   type: 'analysisResult';
   languageId: string;
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  selection?: DocumentSelection;
+
   reports: ReportsForAddon;
+}
+
+/**
+ * Experimental.
+ * Since Acrolinx 2020.4
+ */
+export interface DocumentSelection {
+  ranges: OffsetRange[];
 }
 
 interface InvalidateRangesEvent {
