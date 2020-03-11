@@ -158,17 +158,18 @@ class AppApiConnection {
     window.addEventListener(
       'message',
       messageEvent => {
+        const eventForApp: EventForApp | undefined = messageEvent.data;
+
+        if (messageEvent.source !== window.parent || !eventForApp?.type) {
+          // Message is probably not from the Sidebar. Ignore it.
+          return;
+        }
+
         console.log(
           'Got message from sidebar',
           messageEvent.data.type,
           messageEvent
         );
-
-        const eventForApp: EventForApp | undefined = messageEvent.data;
-
-        if (!eventForApp) {
-          return;
-        }
 
         switch (eventForApp.type) {
           case 'analysisResult':
@@ -211,7 +212,7 @@ class AppApiConnection {
   }
 
   private getAppAccessToken(): Promise<AppAccessTokenResult> {
-    const promise = new Promise<AppAccessTokenResult>((resolve, _reject) => {
+    const promise = new Promise<AppAccessTokenResult>(resolve => {
       this.waitingAppAccessTokenResolvers.push(resolve);
     });
     getAppAccessToken();
