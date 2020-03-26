@@ -23,10 +23,12 @@ export enum ReportType {
   extractedText = 'extractedText'
 }
 
-export enum AppApiCapability {
+export enum RequiredAppApiCommand {
   selectRanges = 'selectRanges',
   replaceRanges = 'replaceRanges'
 }
+
+type AppApiEventConfig = {};
 
 export interface SidebarAddonConfig {
   appSignature: string;
@@ -40,7 +42,11 @@ export interface SidebarAddonConfig {
    */
   processSelectionButton?: AppButtonConfig;
 
-  requires?: AppApiCapability[];
+  requires?: RequiredAppApiCommand[];
+  requiredEvents?: {
+    visibility?: AppApiEventConfig;
+    capabilities?: AppApiEventConfig;
+  };
   requiredReportLinks: readonly ReportType[];
   requiredReportContent: readonly ReportType[];
 }
@@ -80,6 +86,35 @@ interface InvalidateRangesEvent {
   ranges: OffsetRange[];
 }
 
+export interface VisibilityEvent {
+  type: 'visibility';
+  visible: boolean;
+}
+
+export interface CommonCapabilityAvailability {
+  available: boolean;
+  temporary: boolean;
+}
+
+export interface CapabilitiesEventInternal {
+  type: 'capabilities';
+  events: {
+    appAccessToken: CommonCapabilityAvailability;
+    analysisResult: CommonCapabilityAvailability;
+    invalidRanges: CommonCapabilityAvailability;
+    visibility: CommonCapabilityAvailability;
+    capabilities: CommonCapabilityAvailability;
+  };
+  commands: {
+    configureAddon: CommonCapabilityAvailability;
+    requestCapabilities: CommonCapabilityAvailability;
+    openWindow: CommonCapabilityAvailability;
+    requestAppAccessToken: CommonCapabilityAvailability;
+    selectRanges: CommonCapabilityAvailability;
+    replaceRanges: CommonCapabilityAvailability;
+  };
+}
+
 /**
  * @internal
  */
@@ -100,7 +135,9 @@ export interface HttpGetRequest {
 export type EventForApp =
   | AnalysisResultEvent
   | InvalidateRangesEvent
-  | AppAccessTokenEvent;
+  | AppAccessTokenEvent
+  | CapabilitiesEventInternal
+  | VisibilityEvent;
 
 /**
  * @public
@@ -145,6 +182,10 @@ export function configureAddon(config: SidebarAddonConfig) {
 
 export function getAppAccessToken() {
   postMessageToSidebar({ command: 'acrolinx.sidebar.requestAppAccessToken' });
+}
+
+export function requestCapabilities() {
+  postMessageToSidebar({ command: 'acrolinx.sidebar.requestCapabilities' });
 }
 
 function postMessageToSidebar<T extends { command: string }>(message: T) {

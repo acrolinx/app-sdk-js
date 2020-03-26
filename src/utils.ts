@@ -30,6 +30,13 @@ export function includes<T>(array: T[] | undefined, element: any): boolean {
   return array.indexOf(element) >= 0;
 }
 
+export function getEmptyObjectIfIncluded<T>(
+  array: T[],
+  element: T
+): {} | undefined {
+  return includes(array, element) ? {} : undefined;
+}
+
 export function isOverlapping(
   range1: OffsetRange,
   range2: OffsetRange

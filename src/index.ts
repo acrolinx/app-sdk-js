@@ -18,8 +18,9 @@ import { InternalEventEmitter, TypedEventEmitter } from './event-emitter';
 import {
   AnalysisResultEvent,
   AppAccessTokenEvent,
-  AppApiCapability,
   AppButtonConfig,
+  CapabilitiesEventInternal,
+  CommonCapabilityAvailability,
   configureAddon,
   DocumentSelection,
   EventForApp,
@@ -30,16 +31,25 @@ import {
   openWindow,
   replaceRanges,
   ReportType,
+  RequiredAppApiCommand,
   selectRanges,
-  SidebarAddonConfig
+  SidebarAddonConfig,
+  VisibilityEvent
 } from './raw';
-import { exhaustiveSwitchCheck, includes, isOverlapping } from './utils';
+import {
+  exhaustiveSwitchCheck,
+  getEmptyObjectIfIncluded,
+  includes,
+  isOverlapping
+} from './utils';
 
 export {
   OffsetRange,
   OffsetRangeWithReplacement,
   AppAccessTokenEvent,
-  HttpGetRequest
+  HttpGetRequest,
+  CommonCapabilityAvailability,
+  VisibilityEvent
 };
 
 /**
@@ -101,7 +111,19 @@ export enum RequiredCommands {
 export enum RequiredEvents {
   textExtracted = 'textExtracted',
   textExtractedLink = 'textExtractedLink',
-  invalidRanges = 'invalidRanges'
+  invalidRanges = 'invalidRanges',
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  visibility = 'visibility',
+
+  /**
+   * Experimental.
+   * Since Acrolinx 2020.4
+   */
+  capabilities = 'capabilities'
 }
 
 /**
@@ -121,7 +143,9 @@ class AppApiConnection {
   private readonly _events = {
     textExtracted: new InternalEventEmitter<ExtractedTextEvent>(),
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
-    invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>()
+    invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>(),
+    visibility: new InternalEventEmitter<VisibilityEvent>(),
+    capabilities: new InternalEventEmitter<CapabilitiesEventInternal>()
   };
 
   private waitingAppAccessTokenResolvers: Array<
@@ -159,7 +183,17 @@ class AppApiConnection {
       ...config,
       requiredReportLinks,
       requiredReportContent,
-      requires: (config.requiredCommands as unknown) as AppApiCapability[]
+      requires: (config.requiredCommands as unknown) as RequiredAppApiCommand[],
+      requiredEvents: {
+        visibility: getEmptyObjectIfIncluded(
+          config.requiredEvents,
+          RequiredEvents.visibility
+        ),
+        capabilities: getEmptyObjectIfIncluded(
+          config.requiredEvents,
+          RequiredEvents.capabilities
+        )
+      }
     });
 
     window.addEventListener(
@@ -190,6 +224,12 @@ class AppApiConnection {
               resolve(eventForApp);
             });
             this.waitingAppAccessTokenResolvers = [];
+            break;
+          case 'visibility':
+            this._events.visibility.dispatchEvent(eventForApp);
+            break;
+          case 'capabilities':
+            this._events.capabilities.dispatchEvent(eventForApp);
             break;
           default:
             exhaustiveSwitchCheck(eventForApp, 'AppApiEvent');
@@ -235,8 +275,24 @@ export interface AppEvents {
   textExtracted: TypedEventEmitter<ExtractedTextEvent>;
   textExtractedLink: TypedEventEmitter<ExtractedTextLinkEvent>;
   invalidRanges: TypedEventEmitter<TextRangesExpiredEvent>;
+  visibility: TypedEventEmitter<VisibilityEvent>;
+  capabilities: TypedEventEmitter<CapabilitiesEvent>;
 }
 
+export interface CapabilitiesEvent {
+  type: 'capabilities';
+  events: {
+    invalidRanges: CommonCapabilityAvailability;
+    visibility: CommonCapabilityAvailability;
+    capabilities: CommonCapabilityAvailability;
+  };
+  commands: {
+    openWindow: CommonCapabilityAvailability;
+    requestAppAccessToken: CommonCapabilityAvailability;
+    selectRanges: CommonCapabilityAvailability;
+    replaceRanges: CommonCapabilityAvailability;
+  };
+}
 /**
  * @public
  */
