@@ -62,7 +62,7 @@ The app icon needs to be named by convention "acrolinx-app-icon.svg" and must pu
 * [Select Ranges](https://github.com/acrolinx/acrolinx-app-demo-select-ranges) (demonstrates text extraction, select ranges and replace ranges)
 
 
-#Authentication
+## Authentication
 
 ![Sequence Diagram](./docs/images/authentication.mmd.svg)
 
