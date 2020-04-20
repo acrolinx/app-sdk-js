@@ -32,7 +32,7 @@ import {
   RequiredEvents,
   initApi,
   isInvalid,
-  OffsetRange
+  OffsetRange,
 } from './index';
 import { hasParentWindow } from './raw';
 import { includes } from './utils';
@@ -59,7 +59,7 @@ function findAncestorWithData(
 ): HTMLElement | undefined {
   return findAncestor(
     startElement,
-    el => el.dataset[dataAttribute] !== undefined
+    (el) => el.dataset[dataAttribute] !== undefined
   );
 }
 
@@ -84,7 +84,7 @@ function removeClassName(className: string) {
 }
 
 function compact<T>(array: Array<T | null>): T[] {
-  return array.filter(el => el) as T[];
+  return array.filter((el) => el) as T[];
 }
 
 const INVALID_RANGE_CLASS_NAME = 'acrolinx-invalid-range';
@@ -93,7 +93,7 @@ function addInvalidRangesListener(appApi: AcrolinxAppApi) {
   const invalidRangeTooltip = getMetaValue(
     'acrolinx-app-invalid-range-tooltip'
   );
-  appApi.events.invalidRanges.addEventListener(invalidRangesEvent => {
+  appApi.events.invalidRanges.addEventListener((invalidRangesEvent) => {
     const selectRangesElements = document.querySelectorAll<HTMLElement>(
       '[data-acrolinx-select-range]'
     );
@@ -130,12 +130,12 @@ function findAncestorWithValidSelectRange(
   const offsetRangeString = elementWithSelectRange.dataset.acrolinxSelectRange!;
   return {
     element: elementWithSelectRange,
-    range: JSON.parse(offsetRangeString)
+    range: JSON.parse(offsetRangeString),
   };
 }
 
 function addClickSelectRangeListener(appApi: AcrolinxAppApi) {
-  document.addEventListener('click', ev => {
+  document.addEventListener('click', (ev) => {
     const elementWithRange = findAncestorWithValidSelectRange(
       ev.target as HTMLElement
     );
@@ -151,7 +151,7 @@ function addClickSelectRangeListener(appApi: AcrolinxAppApi) {
 }
 
 function addClickReplaceRangeListener(appApi: AcrolinxAppApi) {
-  document.addEventListener('click', ev => {
+  document.addEventListener('click', (ev) => {
     const elementWithReplaceRange = findAncestorWithData(
       ev.target as HTMLElement,
       'acrolinxReplaceRange'
@@ -197,17 +197,17 @@ function initAcrolinxAppAutoForm() {
     title: appTitle || window.location.href,
     button: {
       text: getMetaValue('acrolinx-app-button-text') || 'Check',
-      tooltip: getMetaValue('acrolinx-app-button-tooltip') || ''
+      tooltip: getMetaValue('acrolinx-app-button-tooltip') || '',
     },
     requiredCommands: requiredCommands as RequiredCommands[],
     requiredEvents: compact([
       acrolinxExtractedTextField && RequiredEvents.textExtracted,
-      ...(requiredEvents as RequiredEvents[])
-    ])
+      ...(requiredEvents as RequiredEvents[]),
+    ]),
   });
 
   if (acrolinxExtractedTextField) {
-    appApi.events.textExtracted.addEventListener(event => {
+    appApi.events.textExtracted.addEventListener((event) => {
       acrolinxExtractedTextField.value = event.text;
       acrolinxExtractedTextField.form!.submit();
     });

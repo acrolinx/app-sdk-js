@@ -18,7 +18,7 @@ import {
   RequiredCommands,
   RequiredEvents,
   DEVELOPMENT_APP_SIGNATURE,
-  initApi
+  initApi,
 } from '../src';
 
 describe('initApi', () => {
@@ -32,7 +32,7 @@ describe('initApi', () => {
     const api = initApi({
       title: 'app title',
       requiredCommands: [],
-      requiredEvents: []
+      requiredEvents: [],
     });
     expect(api).toBeTruthy();
   });
@@ -44,14 +44,14 @@ describe('initApi', () => {
       title: 'App Title',
       button: {
         text: 'Extract Text',
-        tooltip: 'Extract text from the document'
+        tooltip: 'Extract text from the document',
       },
       requiredCommands: [RequiredCommands.openWindow],
-      requiredEvents: [RequiredEvents.textExtracted]
+      requiredEvents: [RequiredEvents.textExtracted],
     });
 
     // Listen to events
-    api.events.textExtracted.addEventListener(textExtractedEvent => {
+    api.events.textExtracted.addEventListener((textExtractedEvent) => {
       console.log(
         'textExtractedEvent',
         textExtractedEvent.text,

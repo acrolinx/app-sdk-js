@@ -20,12 +20,12 @@ export interface AppButtonConfig {
 }
 
 export enum ReportType {
-  extractedText = 'extractedText'
+  extractedText = 'extractedText',
 }
 
 export enum RequiredAppApiCommand {
   selectRanges = 'selectRanges',
-  replaceRanges = 'replaceRanges'
+  replaceRanges = 'replaceRanges',
 }
 
 type AppApiEventConfig = {};

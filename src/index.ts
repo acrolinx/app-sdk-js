@@ -34,13 +34,13 @@ import {
   RequiredAppApiCommand,
   selectRanges,
   SidebarAddonConfig,
-  VisibilityEvent
+  VisibilityEvent,
 } from './raw';
 import {
   exhaustiveSwitchCheck,
   getEmptyObjectIfIncluded,
   includes,
-  isOverlapping
+  isOverlapping,
 } from './utils';
 
 export {
@@ -49,7 +49,7 @@ export {
   AppAccessTokenEvent,
   HttpGetRequest,
   CommonCapabilityAvailability,
-  VisibilityEvent
+  VisibilityEvent,
 };
 
 /**
@@ -102,7 +102,7 @@ export enum RequiredCommands {
   selectRanges = 'selectRanges',
   replaceRanges = 'replaceRanges',
   openWindow = 'openWindow',
-  getAppAccessToken = 'getAppAccessToken'
+  getAppAccessToken = 'getAppAccessToken',
 }
 
 /**
@@ -123,7 +123,7 @@ export enum RequiredEvents {
    * Experimental.
    * Since Acrolinx 2020.4
    */
-  capabilities = 'capabilities'
+  capabilities = 'capabilities',
 }
 
 /**
@@ -133,7 +133,7 @@ const DEFAULT_CONFIG: SidebarAddonConfig = {
   appSignature: DEVELOPMENT_APP_SIGNATURE,
   title: 'Acrolinx App',
   requiredReportContent: [],
-  requiredReportLinks: []
+  requiredReportLinks: [],
 };
 
 /**
@@ -145,7 +145,7 @@ class AppApiConnection {
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
     invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>(),
     visibility: new InternalEventEmitter<VisibilityEvent>(),
-    capabilities: new InternalEventEmitter<CapabilitiesEventInternal>()
+    capabilities: new InternalEventEmitter<CapabilitiesEventInternal>(),
   };
 
   private waitingAppAccessTokenResolvers: Array<
@@ -156,7 +156,7 @@ class AppApiConnection {
     selectRanges,
     replaceRanges,
     openWindow,
-    getAppAccessToken: () => this.getAppAccessToken()
+    getAppAccessToken: () => this.getAppAccessToken(),
   };
 
   get events(): AppEvents {
@@ -192,13 +192,13 @@ class AppApiConnection {
         capabilities: getEmptyObjectIfIncluded(
           config.requiredEvents,
           RequiredEvents.capabilities
-        )
-      }
+        ),
+      },
     });
 
     window.addEventListener(
       'message',
-      messageEvent => {
+      (messageEvent) => {
         const eventForApp: EventForApp | undefined = messageEvent.data;
 
         if (messageEvent.source !== window.parent || !eventForApp?.type) {
@@ -220,7 +220,7 @@ class AppApiConnection {
             this._events.invalidRanges.dispatchEvent(eventForApp);
             break;
           case 'appAccessToken':
-            this.waitingAppAccessTokenResolvers.forEach(resolve => {
+            this.waitingAppAccessTokenResolvers.forEach((resolve) => {
               resolve(eventForApp);
             });
             this.waitingAppAccessTokenResolvers = [];
@@ -246,7 +246,7 @@ class AppApiConnection {
     if (textExtractedReport.url) {
       this._events.textExtractedLink.dispatchEvent({
         url: textExtractedReport.url,
-        languageId: analysisResult.languageId
+        languageId: analysisResult.languageId,
       });
     }
 
@@ -254,13 +254,13 @@ class AppApiConnection {
       this._events.textExtracted.dispatchEvent({
         text: textExtractedReport.content,
         languageId: analysisResult.languageId,
-        selection: analysisResult.selection
+        selection: analysisResult.selection,
       });
     }
   }
 
   private getAppAccessToken(): Promise<AppAccessTokenResult> {
-    const promise = new Promise<AppAccessTokenResult>(resolve => {
+    const promise = new Promise<AppAccessTokenResult>((resolve) => {
       this.waitingAppAccessTokenResolvers.push(resolve);
     });
     getAppAccessToken();
@@ -344,5 +344,7 @@ export function isInvalid(
   event: TextRangesExpiredEvent,
   range: OffsetRange
 ): boolean {
-  return event.ranges.some(inValidRange => isOverlapping(inValidRange, range));
+  return event.ranges.some((inValidRange) =>
+    isOverlapping(inValidRange, range)
+  );
 }

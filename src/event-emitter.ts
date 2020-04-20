@@ -29,11 +29,11 @@ export class InternalEventEmitter<T> implements TypedEventEmitter<T> {
   }
 
   public removeEventListener(listener: TypedEventListener<T>) {
-    this.listener = this.listener.filter(li => li !== listener);
+    this.listener = this.listener.filter((li) => li !== listener);
   }
 
   public dispatchEvent(event: T) {
-    this.listener.forEach(listener => {
+    this.listener.forEach((listener) => {
       listener(event);
     });
   }

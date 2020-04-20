@@ -8,5 +8,5 @@ module.exports = {
   includes: './src',
   out: 'docs',
   module: 'commonjs',
-  stripInternal: 'true'
+  stripInternal: 'true',
 };
