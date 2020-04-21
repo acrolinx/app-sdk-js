@@ -21,6 +21,9 @@ export interface TypedEventEmitter<T> {
   removeEventListener(listener: TypedEventListener<T>): void;
 }
 
+/**
+ * @internal
+ */
 export class InternalEventEmitter<T> implements TypedEventEmitter<T> {
   private listener: Array<TypedEventListener<T>> = [];
 

@@ -34,9 +34,10 @@
     "tsc": "tsc",
     "lint": "eslint . --ext .js,.ts -f unix",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",
-    "gendoc": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api",
+    "docs": "npm run apiDocumenter && npm run typeDoc",
+    "apiDocumenter": "tsc && api-extractor run --local --verbose && api-documenter markdown --input-folder tmp --output-folder docs/api",
     "genImages": "mmdc -i docs/images/authentication.mmd",
-    "typeDoc": "typedoc"
+    "typeDoc": "rm -rf docs/typedoc && typedoc"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^8.4.8",

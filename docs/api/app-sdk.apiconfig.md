@@ -17,6 +17,7 @@ export interface ApiConfig
 |  --- | --- | --- |
 |  [appSignature](./app-sdk.apiconfig.appsignature.md) | <code>string</code> |  |
 |  [button](./app-sdk.apiconfig.button.md) | <code>AppButtonConfig</code> |  |
+|  [processSelectionButton](./app-sdk.apiconfig.processselectionbutton.md) | <code>AppButtonConfig</code> | Experimental. Since Acrolinx 2020.4 |
 |  [requiredCommands](./app-sdk.apiconfig.requiredcommands.md) | <code>RequiredCommands[]</code> |  |
 |  [requiredEvents](./app-sdk.apiconfig.requiredevents.md) | <code>RequiredEvents[]</code> |  |
 |  [title](./app-sdk.apiconfig.title.md) | <code>string</code> |  |

@@ -27,12 +27,16 @@
 |  [AppAccessTokenResult](./app-sdk.appaccesstokenresult.md) |  |
 |  [AppCommands](./app-sdk.appcommands.md) |  |
 |  [AppEvents](./app-sdk.appevents.md) |  |
+|  [CapabilitiesEvent](./app-sdk.capabilitiesevent.md) |  |
+|  [CommonCapabilityAvailability](./app-sdk.commoncapabilityavailability.md) |  |
 |  [ExtractedTextEvent](./app-sdk.extractedtextevent.md) |  |
 |  [ExtractedTextLinkEvent](./app-sdk.extractedtextlinkevent.md) |  |
 |  [HttpGetRequest](./app-sdk.httpgetrequest.md) |  |
 |  [OffsetRange](./app-sdk.offsetrange.md) |  |
 |  [OffsetRangeWithReplacement](./app-sdk.offsetrangewithreplacement.md) |  |
 |  [TextRangesExpiredEvent](./app-sdk.textrangesexpiredevent.md) |  |
+|  [TypedEventEmitter](./app-sdk.typedeventemitter.md) |  |
+|  [VisibilityEvent](./app-sdk.visibilityevent.md) |  |
 
 ## Variables
 

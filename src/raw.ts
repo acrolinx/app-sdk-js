@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-export interface AppButtonConfig {
-  text: string;
-  tooltip?: string;
-}
+/**
+ * @packageDocumentation
+ * @internal
+ */
+
+import {
+  AppButtonConfig,
+  CommonCapabilityAvailability,
+  HttpGetRequest,
+  OffsetRange,
+  OffsetRangeWithReplacement,
+  VisibilityEvent,
+} from './common-types';
 
 export enum ReportType {
   extractedText = 'extractedText',
@@ -86,16 +95,6 @@ interface InvalidateRangesEvent {
   ranges: OffsetRange[];
 }
 
-export interface VisibilityEvent {
-  type: 'visibility';
-  visible: boolean;
-}
-
-export interface CommonCapabilityAvailability {
-  available: boolean;
-  temporary: boolean;
-}
-
 export interface CapabilitiesEventInternal {
   type: 'capabilities';
   events: {
@@ -124,37 +123,12 @@ export interface AppAccessTokenEvent {
   appAccessToken: string;
 }
 
-/**
- * @public
- */
-export interface HttpGetRequest {
-  url: string;
-  headers: { [key: string]: string };
-}
-
 export type EventForApp =
   | AnalysisResultEvent
   | InvalidateRangesEvent
   | AppAccessTokenEvent
   | CapabilitiesEventInternal
   | VisibilityEvent;
-
-/**
- * @public
- */
-export interface OffsetRange {
-  begin: number;
-  end: number;
-}
-
-/**
- * @public
- */
-export interface OffsetRangeWithReplacement {
-  replacement: string;
-  begin: number;
-  end: number;
-}
 
 export function hasParentWindow() {
   return window.parent && window.parent !== window;

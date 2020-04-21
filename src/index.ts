@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 
+import {
+  AppButtonConfig,
+  CommonCapabilityAvailability,
+  HttpGetRequest,
+  OffsetRange,
+  OffsetRangeWithReplacement,
+  VisibilityEvent,
+} from './common-types';
 import { InternalEventEmitter, TypedEventEmitter } from './event-emitter';
 import {
   AnalysisResultEvent,
   AppAccessTokenEvent,
-  AppButtonConfig,
   CapabilitiesEventInternal,
-  CommonCapabilityAvailability,
   configureAddon,
   DocumentSelection,
   EventForApp,
   getAppAccessToken,
-  HttpGetRequest,
-  OffsetRange,
-  OffsetRangeWithReplacement,
   openWindow,
   replaceRanges,
   ReportType,
   RequiredAppApiCommand,
   selectRanges,
   SidebarAddonConfig,
-  VisibilityEvent,
 } from './raw';
 import {
   exhaustiveSwitchCheck,
@@ -50,6 +52,7 @@ export {
   HttpGetRequest,
   CommonCapabilityAvailability,
   VisibilityEvent,
+  TypedEventEmitter,
 };
 
 /**

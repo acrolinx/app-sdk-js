@@ -16,5 +16,6 @@ export interface ExtractedTextEvent
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [languageId](./app-sdk.extractedtextevent.languageid.md) | <code>string</code> |  |
+|  [selection](./app-sdk.extractedtextevent.selection.md) | <code>DocumentSelection</code> | Experimental. Since Acrolinx 2020.4 |
 |  [text](./app-sdk.extractedtextevent.text.md) | <code>string</code> |  |
 

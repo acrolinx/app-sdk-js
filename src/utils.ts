@@ -1,3 +1,4 @@
+/** @internal Make all the code in this file (Dynamic Module) external */
 /**
  * Copyright 2019-present Acrolinx GmbH
  *
@@ -15,7 +16,7 @@
  *
  */
 
-import { OffsetRange } from './raw';
+import { OffsetRange } from './common-types';
 
 /**
  * @packageDocumentation
