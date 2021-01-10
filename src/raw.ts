@@ -22,6 +22,8 @@
 import {
   AppButtonConfig,
   CommonCapabilityAvailability,
+  DocumentChangeEvent,
+  DocumentDescriptor,
   HttpGetRequest,
   OffsetRange,
   OffsetRangeWithReplacement,
@@ -54,6 +56,7 @@ export interface SidebarAddonConfig {
   requires?: RequiredAppApiCommand[];
   requiredEvents?: {
     visibility?: AppApiEventConfig;
+    documentChange?: AppApiEventConfig;
     capabilities?: AppApiEventConfig;
   };
   requiredReportLinks: readonly ReportType[];
@@ -80,6 +83,12 @@ export interface AnalysisResultEvent {
   selection?: DocumentSelection;
 
   reports: ReportsForAddon;
+
+  /**
+   * Since 2021.2
+   * Currently it's only set if the user has done a regular check before.
+   */
+  document?: DocumentDescriptor;
 }
 
 /**
@@ -102,6 +111,7 @@ export interface CapabilitiesEventInternal {
     analysisResult: CommonCapabilityAvailability;
     invalidRanges: CommonCapabilityAvailability;
     visibility: CommonCapabilityAvailability;
+    documentChange: CommonCapabilityAvailability;
     capabilities: CommonCapabilityAvailability;
   };
   commands: {
@@ -128,7 +138,8 @@ export type EventForApp =
   | InvalidateRangesEvent
   | AppAccessTokenEvent
   | CapabilitiesEventInternal
-  | VisibilityEvent;
+  | VisibilityEvent
+  | DocumentChangeEvent;
 
 export function hasParentWindow() {
   return window.parent && window.parent !== window;

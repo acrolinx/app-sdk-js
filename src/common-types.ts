@@ -46,6 +46,16 @@ export interface VisibilityEvent {
   visible: boolean;
 }
 
+type DocumentId = string;
+
+export interface DocumentDescriptor {
+  id: DocumentId;
+}
+
+export type DocumentChangeEvent = {
+  type: 'documentChange';
+} & DocumentDescriptor;
+
 /**
  * @public
  */

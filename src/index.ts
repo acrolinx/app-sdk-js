@@ -17,6 +17,8 @@
 import {
   AppButtonConfig,
   CommonCapabilityAvailability,
+  DocumentChangeEvent,
+  DocumentDescriptor,
   HttpGetRequest,
   OffsetRange,
   OffsetRangeWithReplacement,
@@ -73,6 +75,12 @@ export interface ExtractedTextEvent {
    * Since Acrolinx 2020.4
    */
   selection?: DocumentSelection;
+
+  /**
+   * Since 2021.2
+   * Currently it's only set if the user has done a regular check before.
+   */
+  document?: DocumentDescriptor;
 }
 
 /**
@@ -127,6 +135,12 @@ export enum RequiredEvents {
    * Since Acrolinx 2020.4
    */
   capabilities = 'capabilities',
+
+  /**
+   * Since Acrolinx 2021.2
+   * Currently triggered only by regular checks.
+   */
+  documentChange = 'documentChange',
 }
 
 /**
@@ -148,6 +162,7 @@ class AppApiConnection {
     textExtractedLink: new InternalEventEmitter<ExtractedTextLinkEvent>(),
     invalidRanges: new InternalEventEmitter<TextRangesExpiredEvent>(),
     visibility: new InternalEventEmitter<VisibilityEvent>(),
+    documentChange: new InternalEventEmitter<DocumentChangeEvent>(),
     capabilities: new InternalEventEmitter<CapabilitiesEventInternal>(),
   };
 
@@ -196,6 +211,10 @@ class AppApiConnection {
           config.requiredEvents,
           RequiredEvents.capabilities
         ),
+        documentChange: getEmptyObjectIfIncluded(
+          config.requiredEvents,
+          RequiredEvents.documentChange
+        ),
       },
     });
 
@@ -234,6 +253,9 @@ class AppApiConnection {
           case 'capabilities':
             this._events.capabilities.dispatchEvent(eventForApp);
             break;
+          case 'documentChange':
+            this._events.documentChange.dispatchEvent(eventForApp);
+            break;
           default:
             exhaustiveSwitchCheck(eventForApp, 'AppApiEvent');
         }
@@ -258,6 +280,7 @@ class AppApiConnection {
         text: textExtractedReport.content,
         languageId: analysisResult.languageId,
         selection: analysisResult.selection,
+        document: analysisResult.document,
       });
     }
   }
@@ -279,6 +302,7 @@ export interface AppEvents {
   textExtractedLink: TypedEventEmitter<ExtractedTextLinkEvent>;
   invalidRanges: TypedEventEmitter<TextRangesExpiredEvent>;
   visibility: TypedEventEmitter<VisibilityEvent>;
+  documentChange: TypedEventEmitter<DocumentChangeEvent>;
   capabilities: TypedEventEmitter<CapabilitiesEvent>;
 }
 
@@ -287,6 +311,7 @@ export interface CapabilitiesEvent {
   events: {
     invalidRanges: CommonCapabilityAvailability;
     visibility: CommonCapabilityAvailability;
+    documentChange?: CommonCapabilityAvailability;
     capabilities: CommonCapabilityAvailability;
   };
   commands: {
@@ -296,6 +321,7 @@ export interface CapabilitiesEvent {
     replaceRanges: CommonCapabilityAvailability;
   };
 }
+
 /**
  * @public
  */
