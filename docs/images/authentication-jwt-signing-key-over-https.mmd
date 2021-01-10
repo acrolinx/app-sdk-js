@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Acrolinx_Platform as Acrolinx Platform <br>(acrolinxPlatformUrl)
+    participant Sidebar
+    participant App_Client as App Client
+    participant App_Backend as App Backend
+
+    rect rgb(100, 255, 100)
+      Note over Acrolinx_Platform,App_Client: Get the appAccessToken signed with private key
+
+      App_Client->>+Sidebar: getAppAccessToken
+      Sidebar->>+Acrolinx_Platform: getAppAccessToken
+      Acrolinx_Platform-->>-Sidebar: appAccessToken
+      Sidebar-->>-App_Client: acrolinxPlatformUrl, appAccessToken
+    end
+
+    rect rgb(100, 255, 100)
+      Note over Acrolinx_Platform, App_Backend: Use appAccessToken for authentication
+
+      App_Client->>+App_Backend: access backend (acrolinxPlatformUrl, appAccessToken)
+      Note right of App_Backend: Verify acrolinx <br/> platform url <br/>is allowed.
+
+      alt public key is not in cache
+          App_Backend->>+Acrolinx_Platform: get public key
+          Acrolinx_Platform-->>-App_Backend: public key
+      end
+
+      Note right of App_Backend: Verify signature <br/> with public key.
+
+      App_Backend-->>-App_Client: app backend data
+    end
+

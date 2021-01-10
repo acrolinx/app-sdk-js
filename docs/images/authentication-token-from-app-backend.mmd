@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Acrolinx_Platform as Acrolinx Platform <br>(acrolinxPlatformUrl)
+    participant Sidebar
+    participant App_Client as App Client
+    participant App_Backend as App Backend
+
+    rect rgb(100, 255, 100)
+      Note over Acrolinx_Platform,App_Backend: Get the appAccessToken from app backend via acrolinx platform using a shared secret
+
+      App_Client->>+Sidebar: getAppAccessToken
+      Sidebar->>+Acrolinx_Platform: getAppAccessToken
+
+      Acrolinx_Platform->>+App_Backend: getAppAccessToken(username, sharedSecret)
+      Note right of App_Backend: Verify <br/> sharedSecret
+
+      App_Backend-->>-Acrolinx_Platform: appAccessToken
+
+      Acrolinx_Platform-->>-Sidebar: appAccessToken
+      Sidebar-->>-App_Client: appAccessToken
+    end
+
+    rect rgb(100, 255, 100)
+      Note over Acrolinx_Platform, App_Backend: Use appAccessToken for authentication
+
+      App_Client->>+App_Backend: access backend (appAccessToken)
+
+      Note right of App_Backend: Verify <br/> appAccessToken
+
+      App_Backend-->>-App_Client: app backend data
+    end
+
