@@ -16,6 +16,7 @@ export declare enum RequiredEvents
 |  Member | Value | Description |
 |  --- | --- | --- |
 |  capabilities | <code>&quot;capabilities&quot;</code> | Experimental. Since Acrolinx 2020.4 |
+|  documentChange | <code>&quot;documentChange&quot;</code> | Since Acrolinx 2021.2 Currently triggered only by regular checks. |
 |  invalidRanges | <code>&quot;invalidRanges&quot;</code> |  |
 |  textExtracted | <code>&quot;textExtracted&quot;</code> |  |
 |  textExtractedLink | <code>&quot;textExtractedLink&quot;</code> |  |

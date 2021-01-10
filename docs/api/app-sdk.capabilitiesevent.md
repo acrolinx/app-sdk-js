@@ -15,6 +15,6 @@ export interface CapabilitiesEvent
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [commands](./app-sdk.capabilitiesevent.commands.md) | <code>{</code><br/><code>        openWindow: CommonCapabilityAvailability;</code><br/><code>        requestAppAccessToken: CommonCapabilityAvailability;</code><br/><code>        selectRanges: CommonCapabilityAvailability;</code><br/><code>        replaceRanges: CommonCapabilityAvailability;</code><br/><code>    }</code> |  |
-|  [events](./app-sdk.capabilitiesevent.events.md) | <code>{</code><br/><code>        invalidRanges: CommonCapabilityAvailability;</code><br/><code>        visibility: CommonCapabilityAvailability;</code><br/><code>        capabilities: CommonCapabilityAvailability;</code><br/><code>    }</code> |  |
+|  [events](./app-sdk.capabilitiesevent.events.md) | <code>{</code><br/><code>        invalidRanges: CommonCapabilityAvailability;</code><br/><code>        visibility: CommonCapabilityAvailability;</code><br/><code>        documentChange?: CommonCapabilityAvailability;</code><br/><code>        capabilities: CommonCapabilityAvailability;</code><br/><code>    }</code> |  |
 |  [type](./app-sdk.capabilitiesevent.type.md) | <code>'capabilities'</code> |  |
 

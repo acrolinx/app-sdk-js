@@ -10,6 +10,7 @@
 events: {
         invalidRanges: CommonCapabilityAvailability;
         visibility: CommonCapabilityAvailability;
+        documentChange?: CommonCapabilityAvailability;
         capabilities: CommonCapabilityAvailability;
     };
 ```

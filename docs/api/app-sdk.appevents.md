@@ -16,6 +16,7 @@ export interface AppEvents
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [capabilities](./app-sdk.appevents.capabilities.md) | <code>TypedEventEmitter&lt;CapabilitiesEvent&gt;</code> |  |
+|  [documentChange](./app-sdk.appevents.documentchange.md) | <code>TypedEventEmitter&lt;DocumentChangeEvent&gt;</code> |  |
 |  [invalidRanges](./app-sdk.appevents.invalidranges.md) | <code>TypedEventEmitter&lt;TextRangesExpiredEvent&gt;</code> |  |
 |  [textExtracted](./app-sdk.appevents.textextracted.md) | <code>TypedEventEmitter&lt;ExtractedTextEvent&gt;</code> |  |
 |  [textExtractedLink](./app-sdk.appevents.textextractedlink.md) | <code>TypedEventEmitter&lt;ExtractedTextLinkEvent&gt;</code> |  |

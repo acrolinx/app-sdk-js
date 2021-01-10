@@ -15,6 +15,7 @@ export interface ExtractedTextEvent
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [document](./app-sdk.extractedtextevent.document.md) | <code>DocumentDescriptor</code> | Since 2021.2 Currently it's only set if the user has done a regular check before. |
 |  [languageId](./app-sdk.extractedtextevent.languageid.md) | <code>string</code> |  |
 |  [selection](./app-sdk.extractedtextevent.selection.md) | <code>DocumentSelection</code> | Experimental. Since Acrolinx 2020.4 |
 |  [text](./app-sdk.extractedtextevent.text.md) | <code>string</code> |  |
