@@ -3,6 +3,7 @@
 SDK for apps running inside of the Acrolinx Sidebar.
 
 ## Installation
+
 ```bash
 npm install @acrolinx/app-sdk
 ```
@@ -36,6 +37,7 @@ api.commands.openWindow('https://www.acrolinx.com');
 ```
 
 ### Plain old JavaScript
+
 If you prefer to code in plain old JavaScript without npm and without a bundler,
 you can use the [minified browser bundle](https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js).
 In this case you can find the SDK in the global namespace *acrolinxAppSdk*.
@@ -58,8 +60,10 @@ The app icon needs to be named by convention "acrolinx-app-icon.svg" and must pu
 ## Demo Projects
 
 * [Extract Text](https://github.com/acrolinx/acrolinx-app-demo-extract-text) (demonstrates text extraction)
-* [Word Cloud](https://github.com/acrolinx/acrolinx-app-demo) (demonstrates text extraction and displays the results in a react word cloud component)
-* [Select Ranges](https://github.com/acrolinx/acrolinx-app-demo-select-ranges) (demonstrates text extraction, select ranges and replace ranges)
+* [Word Cloud](https://github.com/acrolinx/acrolinx-app-demo)
+  (demonstrates text extraction and displays the results in a react word cloud component)
+* [Select Ranges](https://github.com/acrolinx/acrolinx-app-demo-select-ranges)
+  (demonstrates text extraction, select ranges and replace ranges)
 
 ## References
 
