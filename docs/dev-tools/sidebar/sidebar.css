@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  height: 100%;
+  overflow: hidden;
+}
+
+#sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: white;
+  border-bottom: 1px solid silver;
+}
+
+#appLoadForm {
+  padding: 10px;
+  display: flex;
+  padding-bottom: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid silver;
+}
+
+#appUrlInput {
+  width: 90%;
+  margin: 0 0.4em;
+  box-sizing: border-box;
+}
+
+#checkButtonSection {
+  padding: 10px;
+}
+
+main {
+  flex-grow: 1;
+}
+
+main iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>App-Dev-Sidebar</title>
+  <meta name="sidebar-version" content="14.30.0">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+
+
+<div id="sidebar">
+  <header>
+    <form id="appLoadForm">
+      <label for="appUrlInput">AppUrl:</label>
+      <input type="text" id="appUrlInput">
+      <div><button>Load</button></div>
+    </form>
+
+    <div id="checkButtonSection">
+      <button id="checkButton">Check</button>
+    </div>
+
+  </header>
+  <main>
+    <iframe id="appIFrame" frameborder="0"></iframe>
+  </main>
+</div>
+
+
+<script src="sidebar.js"></script>
+
+</body>
+</html>
