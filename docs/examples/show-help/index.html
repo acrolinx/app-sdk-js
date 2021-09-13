@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open Custom Links - Acrolinx App</title>
+
+  <style>
+      body {
+          font-family: sans-serif;
+          margin: 10px;
+      }
+
+      pre {
+          border: 1px solid #f0f0f0;
+          background: #f8f8f8;
+          min-height: 100px;
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+          padding: 5px;
+      }
+  </style>
+
+  <script src="https://unpkg.com/@acrolinx/app-sdk/dist/acrolinx-app-sdk.min.js"></script>
+</head>
+
+<body>
+
+<script>
+  // Initialize the Acrolinx App API.
+  var api = acrolinxAppSdk.initApi({
+    title: 'Additional Help',
+    button: {
+      text: 'Show help',
+      tooltip: 'Show help'
+    },
+    requiredCommands: [RequiredCommands.openWindow]
+  });
+
+</script>
+
+<p>
+  <a onclick="api.commands.openWindow('https://www.acrolinx.com');" href="#">Sample Link</a>
+</p>
+
+</body>
+</html>
