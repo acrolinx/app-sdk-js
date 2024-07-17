@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^10.9.1",
-    "@microsoft/api-documenter": "^7.25.5",
+    "@microsoft/api-documenter": "^7.25.7",
     "@microsoft/api-extractor": "^7.47.1",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^8.0.0-alpha.44",
