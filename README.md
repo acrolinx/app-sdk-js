@@ -59,11 +59,8 @@ The app icon needs to be named by convention "acrolinx-app-icon.svg" and must pu
 
 ## Demo Projects
 
-* [Extract Text](https://github.com/acrolinx/acrolinx-app-demo-extract-text) (demonstrates text extraction)
 * [Word Cloud](https://github.com/acrolinx/acrolinx-app-demo)
   (demonstrates text extraction and displays the results in a react word cloud component)
-* [Select Ranges](https://github.com/acrolinx/acrolinx-app-demo-select-ranges)
-  (demonstrates text extraction, select ranges and replace ranges)
 
 ## References
 
