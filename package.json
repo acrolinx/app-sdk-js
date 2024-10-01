@@ -54,7 +54,7 @@
     "@microsoft/api-documenter": "^7.25.16",
     "@microsoft/api-extractor": "^7.47.9",
     "@types/jest": "^29.5.13",
-    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
     "@typescript-eslint/parser": "^8.7.0",
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
