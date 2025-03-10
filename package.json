@@ -18,7 +18,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "renameIndexFile": "acrolinx-app-sdk.min.js",
   "renameAutoFormFile": "acrolinx-app-sdk-auto-form.min.js",
