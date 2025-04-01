@@ -65,7 +65,7 @@
     "markdown-doctest": "^1.0.0",
     "parcel": "^2.14.4",
     "prettier": "^3.5.3",
-    "ts-jest": "^29.3.0",
+    "ts-jest": "^29.3.1",
     "typedoc": "^0.28.1",
     "typescript": "^5.8.2"
   },
