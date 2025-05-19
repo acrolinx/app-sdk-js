@@ -63,7 +63,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-junit": "^16.0.0",
     "markdown-doctest": "^1.0.0",
-    "parcel": "^2.14.4",
+    "parcel": "^2.15.1",
     "prettier": "^3.5.3",
     "ts-jest": "^29.3.4",
     "typedoc": "^0.28.4",
