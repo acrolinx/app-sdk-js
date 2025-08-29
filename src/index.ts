@@ -27,7 +27,6 @@ import {
 import { InternalEventEmitter, TypedEventEmitter } from './event-emitter';
 import {
   AnalysisResultEvent,
-  AppAccessTokenEvent,
   CapabilitiesEventInternal,
   configureAddon,
   DocumentSelection,
@@ -47,15 +46,20 @@ import {
   isOverlapping,
 } from './utils';
 
-export {
+// Export types from common-types
+export type { 
   OffsetRange,
   OffsetRangeWithReplacement,
-  AppAccessTokenEvent,
-  HttpGetRequest,
   CommonCapabilityAvailability,
   VisibilityEvent,
-  TypedEventEmitter,
-};
+  HttpGetRequest,
+} from './common-types';
+
+// Export types from raw
+export type { AppAccessTokenEvent } from './raw';
+
+// Export types from event-emitter
+export type { TypedEventEmitter } from './event-emitter';
 
 /**
  * @public
