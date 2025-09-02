@@ -60,7 +60,7 @@
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "jest": "^30.1.1",
+    "jest": "^30.1.2",
     "jest-environment-jsdom": "^30.1.2",
     "jest-junit": "^16.0.0",
     "markdown-doctest": "^1.0.0",
