@@ -65,7 +65,7 @@
     "jest-junit": "^17.0.0",
     "markdown-doctest": "^1.0.0",
     "parcel": "^2.16.4",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.1",
     "ts-jest": "^29.4.11",
     "typedoc": "^0.28.19",
     "typescript": "^5.9.3"
