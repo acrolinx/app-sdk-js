@@ -55,7 +55,7 @@
     "@microsoft/api-extractor": "^7.59.1",
     "@parcel/transformer-typescript-tsc": "^2.16.4",
     "@types/jest": "^30.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
     "@typescript-eslint/parser": "^8.70.1",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
